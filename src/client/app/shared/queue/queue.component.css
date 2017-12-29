@@ -1,0 +1,46 @@
+:host {
+  /*background-color: #106cc8;*/
+  /*color: rgba(255, 255, 255, 0.87);*/
+
+  display: block;
+
+  overflow-y: auto;
+  height: 100%;
+}
+
+.active {
+  /*background: rgba(255, 255, 255, 0.2);*/
+}
+
+.play-indicator {
+  display: inline-block;
+}
+
+.song-album-row {
+  padding-left: 70px;
+  font-size: 1.2em;
+  /*border-bottom: 1px solid #eff0f1;*/
+}
+
+.album-row {
+  padding: 6px 16px;
+  font-size: 1.1em;
+  font-weight: 400;
+  border-bottom: 1px solid #cecece;
+}
+
+.album-row > img {
+  margin-left: -85px;
+  margin-bottom: -42px;
+  height: 57px;
+  max-width: 60px;
+}
+
+.song-row {
+  font-size: 1.1em;
+  padding: 6px 16px;
+}
+
+.song-duration {
+  float: right;
+}

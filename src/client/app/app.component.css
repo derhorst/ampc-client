@@ -1,0 +1,11 @@
+:host {
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
+  font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-style: normal;
+  font-weight: 300;
+
+  height: 100%;
+  overflow: hidden;
+}

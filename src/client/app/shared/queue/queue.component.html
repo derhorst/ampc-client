@@ -1,0 +1,11 @@
+<div *ngFor="let song of queue; let i = index" class="song-album-row">
+  <div *ngIf="song.pos === currentSong.pos" #target>{{ scroll(target) }}</div>
+  <div *ngIf="i < 1 || (song.album !== queue[i-1].album || song.album_artist !== queue[i-1].album_artist)" class="album-row">
+    <img [src]="song.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
+    {{ song.album_artist }} - {{ song.album }} {{ song.date | year }}
+  </div>
+  <div class="song-row" [ngClass]="{active: song.pos === currentSong.pos}">
+    {{ str_pad_left(song.track, '0', 2) }} &nbsp;  <div class="play-indicator" *ngIf="song.pos === currentSong.pos">&#9205;&nbsp;</div>{{ song.title }}
+    <span class="song-duration">{{ song.duration | formatDuration }}</span>
+  </div>
+</div>

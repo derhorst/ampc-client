@@ -1,0 +1,122 @@
+/*:host {*/
+  /*background-color: #106cc8;*/
+  /*color: rgba(255, 255, 255, 0.87);*/
+
+  /*display: block;
+
+  overflow-y: auto;
+  height: 100%;
+}*/
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.album-list-caption {
+  width: 100%;
+  font-size: 1.2em;
+  color: #fff;
+  height: 2rem;
+}
+
+.center-cropped {
+  object-fit: scale-down;
+  object-position: center;
+  width: 300px;
+  height: 300px;
+  filter: contrast(70%) brightness(80%);
+  //filter: saturate(180%);
+  /*position: relative;*/
+  transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);;
+}
+
+.center-cropped:hover {
+  filter: contrast(100%);
+}
+
+.img-desc {
+  display: none;
+  height: 5rem;
+  margin-top: -5rem;
+  width: 300px;
+  background-color: black;
+  opacity: 0.8;
+  padding: 1rem;
+  z-index: 85;
+  position: inherit;
+}
+
+.cards-item:hover > .img-desc {
+  display: inherit;
+}
+
+.img-desc > span {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.flex-container > span, .flex-container > span > span {
+  height: 100%;
+  display: inline-block;
+}
+
+.flex-container {
+  overflow-x: hidden;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  padding-bottom: 2rem;
+}
+
+.cards {
+  height: 100%;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: space-between;
+  align-items: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+
+  display: flex;
+  overflow-x: auto;
+  /*flex-wrap: wrap;*/
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards-item {
+  display: flex;
+  margin: 1rem;
+  /* height: 300px; */
+  width: 300px;
+  display: inline-block;
+  /*background-color: #4c4c4c;*/
+  /* margin-bottom: 2rem; */
+}
+
+.card-title {
+  color: #696969;
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

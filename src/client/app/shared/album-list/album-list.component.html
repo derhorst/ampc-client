@@ -1,0 +1,13 @@
+<div class="album-list-caption" *ngIf="songs && songs.length > 1">{{ songs[0].album_artist }} &#8250; Albums</div>
+<div class="album-list flex-container">
+  <ul class="cards" *ngIf="songs && currentSong?.album_artist === songs[0].album_artist">
+    <li class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
+      <img class="center-cropped" [src]="song.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
+      <div class="img-desc">
+        <span>
+          {{ song.album }} {{ song.date | year }}
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
