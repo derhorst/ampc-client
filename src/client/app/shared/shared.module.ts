@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { InlineSVGModule } from 'ng-inline-svg';
+
 import { WebsocketService } from './websocket/websocket.service';
 import { MpdService } from './websocket/mpd.service';
 import { StateService } from './state/state.service';
@@ -13,6 +15,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
+import { ControlsBarComponent } from './controls-bar/controls-bar.component';
 
 import { YearPipe } from './state/year.pipe';
 import { FormatDurationPipe } from './state/format-duration.pipe';
@@ -24,11 +27,11 @@ import { DuplicateAlbumFilterPipe } from './state/duplicate-album-filter.pipe';
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, InlineSVGModule],
   declarations: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
-     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe],
+     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent],
   exports: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
-    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe]
+    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

@@ -1,5 +1,5 @@
 # ampc-client
-ampc frontend written in Angular 5
+ampc frontend written using Angular 5 and typescript
 
 ![ScreenShot](https://raw.githubusercontent.com/derhorst/ampc-client/master/screenshot.png)
 

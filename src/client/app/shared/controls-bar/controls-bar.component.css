@@ -1,0 +1,52 @@
+.progress-container {
+  height: 10px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  /*border-bottom: 1px solid #cecece;*/
+  z-index: 1;
+}
+
+.progress-bar {
+  bottom: 0;
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.2);
+  /*background-color: rgba(61, 174, 233, 1);*/
+  opacity: 1;
+  height: 10px;
+}
+
+.control-bar {
+  bottom: 10px;
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: 1fr 9em 1fr;
+  /*background-color: red;*/
+  width: 100%;
+  height: 3em;
+}
+
+.controls-center {
+  position: relative;
+  display: inline-flex;
+  height: 3em;
+}
+
+.controls-center > div {
+  width: 3em;
+  height: 3em;
+  fill: white;
+  fill-opacity: 0.4;
+}
+
+.controls-center > div:hover {
+  cursor: pointer;
+  fill: white;
+  fill-opacity: 1;
+}

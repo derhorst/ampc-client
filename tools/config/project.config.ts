@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-// import { ExtendPackages } from './seed.config.interfaces';
+import { ExtendPackages } from './seed.config.interfaces';
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
@@ -13,8 +13,7 @@ export class ProjectConfig extends SeedConfig {
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
-    // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
+    this.APP_TITLE = 'AMPC';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
@@ -41,6 +40,20 @@ export class ProjectConfig extends SeedConfig {
       ...this.ROLLUP_NAMED_EXPORTS,
       //{'node_modules/immutable/dist/immutable.js': [ 'Map' ]},
     ];
+
+    // Add packages (e.g. angular2-jwt)
+    const additionalPackages: ExtendPackages[] = [{
+      name: 'ng-inline-svg',
+      // Path to the package's bundle
+      path: 'node_modules/ng-inline-svg',
+      packageMeta: {
+       defaultExtension: 'js',
+       main: 'lib/index',
+      }
+
+    }];
+
+    this.addPackagesBundles(additionalPackages);
 
     // Add packages (e.g. ng2-translate)
     // const additionalPackages: ExtendPackages[] = [{

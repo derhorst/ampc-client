@@ -1,23 +1,9 @@
-<!-- <p>Howdy! Here's a list of awesome computer scientists. Do you know any others? Add to the list yourself.</p>
 
-<form (submit)="addName()">
-  <input [(ngModel)]="newName" name="newName" placeholder="Awesome Computer Scientist">
-  <button type="submit">Add</button>
-</form>
-
-<ul>
-  <li *ngFor="let name of names">{{ name }}</li>
-</ul> -->
-
-<div class="progress-container">
-  <div class="progress-bar" [style.width]="percent+'%'"></div>
-</div>
-
-<div class="content">
+<div class="background">
   <img class="background-image" [src]="currentSong?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
 </div>
 
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{'controls-visible': showControls}">
   <div class="box cover">
     <img [src]="currentSong?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
     <!-- <div class="album-controls">
@@ -38,5 +24,6 @@
     <sd-queue class="queue"></sd-queue>
   </div>
 </div>
+<sd-controls-bar [showControls]="showControls"></sd-controls-bar>
 <!--
 <sd-queue class="more"></sd-queue> -->

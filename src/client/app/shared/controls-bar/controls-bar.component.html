@@ -1,0 +1,14 @@
+<div class="progress-container">
+  <div class="progress-bar" [style.width]="percent+'%'"></div>
+</div>
+
+<div *ngIf="showControls" class="control-bar">
+  <div class="controls-left box"></div>
+  <div class="controls-center">
+      <div inlineSVG="assets/svg/media-skip-backward.svg" (click)="prevSong()"></div>
+      <div *ngIf="playing" inlineSVG="assets/svg/media-playback-pause.svg" (click)="playPause()"></div>
+      <div *ngIf="!playing" inlineSVG="assets/svg/media-playback-start.svg" (click)="playPause()"></div>
+      <div inlineSVG="assets/svg/media-skip-forward.svg" (click)="nextSong()"></div>
+  </div>
+  <div class="controls-right box"></div>
+</div>

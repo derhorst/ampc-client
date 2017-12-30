@@ -14,6 +14,7 @@
 
 .play-indicator {
   display: inline-block;
+  line-height: 1em;
 }
 
 .song-album-row {
@@ -43,4 +44,15 @@
 
 .song-duration {
   float: right;
+}
+
+@media (max-device-width: 500px) {
+
+  .song-row {
+    font-size: 0.9em !important;
+  }
+
+  .album-row {
+    font-size: 0.9em !important;
+  }
 }

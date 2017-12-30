@@ -89,9 +89,30 @@ export class MpdService {
     );
   }
 
-  artistChanged(artist: string) {
+  sendCommand(
+    command: 'artistChanged'
+    | 'playPause'
+    | 'nextSong'
+    | 'prevSong'
+    ,
+    args?: any[]) {
     if (!this.ws.closed) {
-      this.ws.next('MPD_API_GET_ARTIST_ALBUMS,' + artist);
+      switch (command) {
+        case 'artistChanged':
+          this.ws.next('MPD_API_GET_ARTIST_ALBUMS,' + args[0]);
+          break;
+        case 'playPause':
+          this.ws.next('MPD_API_SET_PAUSE');
+          break;
+        case 'nextSong':
+          this.ws.next('MPD_API_SET_NEXT');
+          break;
+        case 'prevSong':
+          this.ws.next('MPD_API_SET_PREV');
+          break;
+        default:
+          console.log('command not found:', command);
+      }
     }
   }
 }
