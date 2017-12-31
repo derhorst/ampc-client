@@ -2,12 +2,7 @@
 <div class="album-list flex-container">
   <ul class="cards" *ngIf="songs && currentSong?.album_artist === songs[0].album_artist">
     <li class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
-      <img class="center-cropped" [src]="song.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
-      <div class="img-desc">
-        <span>
-          {{ song.album }} {{ song.date | year }}
-        </span>
-      </div>
+      <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
     </li>
   </ul>
 </div>

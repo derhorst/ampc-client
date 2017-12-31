@@ -30,11 +30,12 @@
   border-bottom: 1px solid #cecece;
 }
 
-.album-row > img {
+.cover {
+  display: inherit;
   margin-left: -85px;
-  margin-bottom: -42px;
+  margin-bottom: -2.8em;
   height: 57px;
-  max-width: 60px;
+  max-width: 57px;
 }
 
 .song-row {

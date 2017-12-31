@@ -1,0 +1,70 @@
+.cover {
+  width: 100%;
+  position: relative;
+}
+
+.cover > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.low-contrast {
+  filter: contrast(70%) brightness(80%);
+  //filter: saturate(180%);
+  /*position: relative;*/
+  transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);;
+}
+
+.high-contrast {
+  filter: contrast(170%) brightness(80%);
+  //filter: saturate(180%);
+  /*position: relative;*/
+  transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);;
+}
+
+
+.low-contrast:hover, .high-contrast:hover {
+  filter: contrast(100%);
+}
+
+.queue-album {
+  top: 3.8em !important;
+}
+
+.cover:hover > .album-controls {
+  display: inherit;
+}
+
+.album-controls {
+  display: none;
+  float: left;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.2em;
+  margin: 0.5em;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.album-controls > div {
+  width: 3em;
+  height: 3em;
+  fill: white;
+  fill-opacity: 0.6;
+}
+
+.album-controls:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.album-controls > div:hover {
+  width: 3em;
+  height: 3em;
+  fill: white;
+  fill-opacity: 1;
+}

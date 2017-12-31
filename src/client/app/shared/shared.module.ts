@@ -16,6 +16,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { ControlsBarComponent } from './controls-bar/controls-bar.component';
+import { CoverComponent } from './cover/cover.component';
 
 import { YearPipe } from './state/year.pipe';
 import { FormatDurationPipe } from './state/format-duration.pipe';
@@ -29,9 +30,9 @@ import { DuplicateAlbumFilterPipe } from './state/duplicate-album-filter.pipe';
 @NgModule({
   imports: [CommonModule, RouterModule, InlineSVGModule],
   declarations: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
-     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent],
+     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent],
   exports: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
-    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent]
+    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

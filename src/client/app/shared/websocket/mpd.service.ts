@@ -94,6 +94,9 @@ export class MpdService {
     | 'playPause'
     | 'nextSong'
     | 'prevSong'
+    | 'addTrack'
+    | 'addPlayTrack'
+    | 'addArtistAlbum'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -110,6 +113,15 @@ export class MpdService {
         case 'prevSong':
           this.ws.next('MPD_API_SET_PREV');
           break;
+          case 'addTrack':
+            this.ws.next('MPD_API_ADD_TRACK,' + args[0]);
+            break;
+          case 'addPlayTrack':
+            this.ws.next('MPD_API_ADD_PLAY_TRACK,' + args[0]);
+            break;
+          case 'addArtistAlbum':
+            this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1] + ',' + args[2]);
+            break;
         default:
           console.log('command not found:', command);
       }
