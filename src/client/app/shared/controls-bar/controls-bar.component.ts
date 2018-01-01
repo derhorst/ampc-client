@@ -21,21 +21,21 @@ import { Song } from '../models/song.model';
 })
 
 export class ControlsBarComponent {
-  @Input() showControls: boolean;
+  @Input() showControls = true;
   @Input() currentSong: Song;
   percent = 0;
   volume = 0;
   mute = false;
-  state: ReplaySubject<State>;
+  state: State;
   playing = false;
   private initPointX: number;
   private initPointY: number;
   private eventOptions: boolean|{capture?: boolean, passive?: boolean};
 
   constructor(private ele: ElementRef, private _state: StateService, private _mpd: MpdService) {
-    this.state = this._state.getState();
-    this.state.subscribe(
+    this._state.getState().subscribe(
       (state: State) => {
+        this.state = state;
         this.percent = (state.elapsedTime / state.totalTime) * 100;
         if (!this.mute || state.volume > 0) {
           this.volume = state.volume;
@@ -110,6 +110,46 @@ export class ControlsBarComponent {
     if (this.currentSong && this.currentSong.pos >= 0) {
       const seekVal = Math.ceil(this.currentSong.duration * (setSeek / 100));
       this._mpd.sendCommand('setSeek', [this.currentSong.id, seekVal]);
+    }
+  }
+
+  toggleConsume() {
+    if (this.state.consume === 1) {
+      this.state.consume = 0;
+      this._mpd.sendCommand('toggleConsume', [0]);
+    } else {
+      this.state.consume = 1;
+      this._mpd.sendCommand('toggleConsume', [1]);
+    }
+  }
+
+  toggleRandom() {
+    if (this.state.random === 1) {
+      this.state.random = 0;
+      this._mpd.sendCommand('toggleRandom', [0]);
+    } else {
+      this.state.random = 1;
+      this._mpd.sendCommand('toggleRandom', [1]);
+    }
+  }
+
+  toggleSingle() {
+    if (this.state.single === 1) {
+      this.state.single = 0;
+      this._mpd.sendCommand('toggleSingle', [0]);
+    } else {
+      this.state.single = 1;
+      this._mpd.sendCommand('toggleSingle', [1]);
+    }
+  }
+
+  toggleRepeat() {
+    if (this.state.repeat === 1) {
+      this.state.repeat = 0;
+      this._mpd.sendCommand('toggleRepeat', [0]);
+    } else {
+      this.state.repeat = 1;
+      this._mpd.sendCommand('toggleRepeat', [1]);
     }
   }
 }

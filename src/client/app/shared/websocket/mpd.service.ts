@@ -99,6 +99,10 @@ export class MpdService {
     | 'addArtistAlbum'
     | 'setVolume'
     | 'setSeek'
+    | 'toggleConsume'
+    | 'toggleRandom'
+    | 'toggleSingle'
+    | 'toggleRepeat'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -127,9 +131,21 @@ export class MpdService {
           case 'setVolume':
             this.ws.next('MPD_API_SET_VOLUME,' + args[0]);
             break;
-            case 'setSeek':
-              this.ws.next('MPD_API_SET_SEEK,' + args[0] + ',' + args[1]);
-              break;
+          case 'setSeek':
+            this.ws.next('MPD_API_SET_SEEK,' + args[0] + ',' + args[1]);
+            break;
+          case 'toggleConsume':
+            this.ws.next('MPD_API_TOGGLE_CONSUME,' + args[0]);
+            break;
+          case 'toggleRandom':
+            this.ws.next('MPD_API_TOGGLE_RANDOM,' + args[0]);
+            break;
+          case 'toggleSingle':
+            this.ws.next('MPD_API_TOGGLE_SINGLE,' + args[0]);
+            break;
+          case 'toggleRepeat':
+            this.ws.next('MPD_API_TOGGLE_REPEAT,' + args[0]);
+            break;
         default:
           console.log('command not found:', command);
       }

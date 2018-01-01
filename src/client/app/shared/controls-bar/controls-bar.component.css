@@ -19,6 +19,10 @@
   height: 0.5em;
 }
 
+.progress-container:hover > .progress-bar {
+  background: rgba(255, 255, 255, 1);
+}
+
 .control-bar {
   bottom: 0.5em;
   position: fixed !important;
@@ -45,20 +49,54 @@
   fill-opacity: 0.4;
 }
 
-.controls-center > div:hover {
+.btn {
+  margin-top: 0.5em;
+  width: 2em;
+  height: 2em;
+  fill: white;
+  fill-opacity: 0.4;
+}
+
+.controls-left > div:hover, .controls-center > div:hover, .controls-right > div:hover {
   cursor: pointer;
   fill: white;
   fill-opacity: 1;
 }
 
+.btn-small.consume {
+  padding: 0.4em;
+}
+
+.btn-small {
+  padding: 0.2em;
+}
+
+.btn-smaller {
+  padding: 0.3em;
+}
+
+.selected.consume {
+  fill: yellow;
+  fill-opacity: 0.6;
+}
+
+.selected.consume:hover {
+  fill: yellow !important;
+}
+
+.selected {
+  fill-opacity: 0.9;
+}
+
+.controls-left {
+  display: inline-flex;
+  justify-content: flex-start;
+  margin-left: 1em;
+}
+
 .controls-right {
   display: inline-flex;
   justify-content: flex-end;
-  float: right;
-}
-
-.controls-right > div:hover, .controls-right > span:hover {
-  cursor: pointer;
 }
 
 .volume {
