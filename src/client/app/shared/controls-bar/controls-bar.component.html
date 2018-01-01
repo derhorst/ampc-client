@@ -1,4 +1,4 @@
-<div class="progress-container">
+<div class="progress-container" (click)="seek($event)">
   <div class="progress-bar" [style.width]="percent+'%'"></div>
 </div>
 
@@ -10,5 +10,12 @@
       <div *ngIf="!playing" inlineSVG="assets/svg/media-playback-start.svg" (click)="playPause()"></div>
       <div inlineSVG="assets/svg/media-skip-forward.svg" (click)="nextSong()"></div>
   </div>
-  <div class="controls-right box"></div>
+  <div class="controls-right box">
+    <div class="volume">
+      <div class="volume-container" (click)="setVolume($event)">
+        <div class="volume-bar" [style.width]="volume+'%'"></div>
+      </div>
+      <span class="volume-label" (click)="toggleMute()"><span *ngIf="mute">-- %</span><span *ngIf="!mute">{{ volume }} %</span></span>
+    </div>
+  </div>
 </div>

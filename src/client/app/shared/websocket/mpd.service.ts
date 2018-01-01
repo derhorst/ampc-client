@@ -97,6 +97,8 @@ export class MpdService {
     | 'addTrack'
     | 'addPlayTrack'
     | 'addArtistAlbum'
+    | 'setVolume'
+    | 'setSeek'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -122,6 +124,12 @@ export class MpdService {
           case 'addArtistAlbum':
             this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1] + ',' + args[2]);
             break;
+          case 'setVolume':
+            this.ws.next('MPD_API_SET_VOLUME,' + args[0]);
+            break;
+            case 'setSeek':
+              this.ws.next('MPD_API_SET_SEEK,' + args[0] + ',' + args[1]);
+              break;
         default:
           console.log('command not found:', command);
       }

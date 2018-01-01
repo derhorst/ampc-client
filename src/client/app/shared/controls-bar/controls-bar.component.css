@@ -1,5 +1,5 @@
 .progress-container {
-  height: 10px;
+  height: 0.5em;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -16,11 +16,11 @@
   background: rgba(255, 255, 255, 0.2);
   /*background-color: rgba(61, 174, 233, 1);*/
   opacity: 1;
-  height: 10px;
+  height: 0.5em;
 }
 
 .control-bar {
-  bottom: 10px;
+  bottom: 0.5em;
   position: fixed !important;
   margin: 0 !important;
   z-index: 2;
@@ -49,4 +49,50 @@
   cursor: pointer;
   fill: white;
   fill-opacity: 1;
+}
+
+.controls-right {
+  display: inline-flex;
+  justify-content: flex-end;
+  float: right;
+}
+
+.controls-right > div:hover, .controls-right > span:hover {
+  cursor: pointer;
+}
+
+.volume {
+  display: inherit;
+}
+
+.volume-container {
+  height: 1em;
+  width: 6em;
+  margin-top: 1em;
+  margin-right: 0.5em;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /*border-bottom: 1px solid #cecece;*/
+  z-index: 1;
+}
+
+.volume:hover > div > .volume-bar, .volume:hover > .volume-label {
+  color: rgba(255, 255, 255, 1);
+  opacity: 1;
+}
+
+.volume-bar {
+  height: 1em;
+  position: relative;
+  margin: 0 !important;
+  z-index: 2;
+  background-color: white;
+  opacity: 0.2;
+}
+
+.volume-label {
+  color: rgba(255, 255, 255, 0.4);
+  /*margin-left: 2em;*/
+  margin-top: 1em;
+  width: 3.5em;
 }
