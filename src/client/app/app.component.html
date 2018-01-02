@@ -1,5 +1,5 @@
+<router-outlet></router-outlet>
+<sd-controls-bar [currentSong]="currentSong"></sd-controls-bar>
 <div class="background">
   <img class="background-image" [src]="currentSong?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">
 </div>
-<router-outlet></router-outlet>
-<sd-controls-bar [currentSong]="currentSong"></sd-controls-bar>

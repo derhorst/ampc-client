@@ -79,22 +79,19 @@ h2 {
   text-overflow: ellipsis;
 }
 .box {
-  /*background-color: #444;
-  color: #fff;*/
   padding: 1em;
 }
 
 .library {
   grid-row: auto / span 2;
   padding-bottom: 0.6em !important;
-  margin-top: 0.8em;
+  margin-top: 0.7em;
   margin-bottom: 1em;
   /*background-color: blue;*/
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-.library > h2 {
+.library-caption > h2 {
   color: #fff;
   font-size: 1.5em !important;
   max-height: 2.2em;
@@ -103,15 +100,24 @@ h2 {
   text-transform: uppercase;
 }
 
+.library-wrapper {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
 .library-container {
   padding: 0.5em;
+  margin-top: 1em;
+  overflow: scroll;
+  position: relative;
+  height: 100%;
 }
 
 .queue-wrapper {
   color: #fff;
   padding-bottom: 0.6em !important;
   grid-column: auto / span 2;
-  /*background-color: red;*/
   overflow-y: hidden;
 }
 
@@ -136,6 +142,34 @@ h2 {
 .caret-down {
   transform: rotate(90deg);
   display: inline-block;
+}
+
+.library-caption {
+  display: inline-flex;
+}
+
+.library-caption > input {
+  background: none;
+  opacity: 0.7;
+  font-size: 1.5em;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 0.6em;
+  margin-left: 1em;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.clear-filter {
+  color: rgba(255, 255, 255, 0.5) !important;
+  margin-left: 1em;
+  cursor: pointer;
+}
+
+.library-caption > input:focus {
+  opacity: 1;
 }
 
 .albums {
