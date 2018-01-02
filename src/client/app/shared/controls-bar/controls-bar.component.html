@@ -14,6 +14,8 @@
       routerLink="/library"  routerLinkActive="selected"></div>
     <div class="btn btn-smaller" [ngClass]="{'selected': state?.repeat === 1}" inlineSVG="assets/svg/playlist.svg"
       routerLink="/playlists"  routerLinkActive="selected"></div>
+    <div class="btn btn-smaller" [ngClass]="{'selected': state?.repeat === 1}" inlineSVG="assets/svg/settings.svg"
+      routerLink="/settings"  routerLinkActive="selected"></div>
   </div>
   <div class="controls-center">
       <div inlineSVG="assets/svg/media-skip-backward.svg" (click)="prevSong()"></div>

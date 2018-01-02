@@ -7,6 +7,7 @@ import { Song } from '../models/song.model';
 
 import { QueueService } from '../state/queue.service';
 import { CurrentSongService } from '../state/current-song.service';
+import { MpdService } from '../websocket/mpd.service';
 
 /**
  * This class represents the navigation bar component.
@@ -22,10 +23,11 @@ export class QueueComponent implements OnInit {
   queue: Song[];
   currentSong: Song;
   queueChanged = false;
+  selected: {id: number, pos: number} = {id: null, pos: null};
 
   private _song: ReplaySubject<Song>;
 
-  constructor(private _queue: QueueService, private _currentSong: CurrentSongService) {
+  constructor(private _queue: QueueService, private _currentSong: CurrentSongService, private _mpd: MpdService) {
     this._queue.getQueue().subscribe((songs: Song[]) => {
         this.queue = songs;
         this.queueChanged = true;
@@ -48,6 +50,20 @@ export class QueueComponent implements OnInit {
     setTimeout(() => {
       this.queueChanged = true;
     }, 900);
+  }
+
+  playTrack(song: Song) {
+    this._mpd.sendCommand('playTrack', [song.id]);
+  }
+
+  selectTrack(song: Song) {
+    if (this.selected.pos && this.selected.id === song.id && this.selected.pos === song.pos) {
+      this.selected.pos = null;
+      this.selected.id = null;
+    } else {
+      this.selected.pos = song.pos;
+      this.selected.id = song.id;
+    }
   }
 
   scroll(el: any) {

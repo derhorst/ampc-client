@@ -103,6 +103,7 @@ export class MpdService {
     | 'toggleRandom'
     | 'toggleSingle'
     | 'toggleRepeat'
+    | 'playTrack'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -119,33 +120,36 @@ export class MpdService {
         case 'prevSong':
           this.ws.next('MPD_API_SET_PREV');
           break;
-          case 'addTrack':
-            this.ws.next('MPD_API_ADD_TRACK,' + args[0]);
-            break;
-          case 'addPlayTrack':
-            this.ws.next('MPD_API_ADD_PLAY_TRACK,' + args[0]);
-            break;
-          case 'addArtistAlbum':
-            this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1] + ',' + args[2]);
-            break;
-          case 'setVolume':
-            this.ws.next('MPD_API_SET_VOLUME,' + args[0]);
-            break;
-          case 'setSeek':
-            this.ws.next('MPD_API_SET_SEEK,' + args[0] + ',' + args[1]);
-            break;
-          case 'toggleConsume':
-            this.ws.next('MPD_API_TOGGLE_CONSUME,' + args[0]);
-            break;
-          case 'toggleRandom':
-            this.ws.next('MPD_API_TOGGLE_RANDOM,' + args[0]);
-            break;
-          case 'toggleSingle':
-            this.ws.next('MPD_API_TOGGLE_SINGLE,' + args[0]);
-            break;
-          case 'toggleRepeat':
-            this.ws.next('MPD_API_TOGGLE_REPEAT,' + args[0]);
-            break;
+        case 'addTrack':
+          this.ws.next('MPD_API_ADD_TRACK,' + args[0]);
+          break;
+        case 'addPlayTrack':
+          this.ws.next('MPD_API_ADD_PLAY_TRACK,' + args[0]);
+          break;
+        case 'addArtistAlbum':
+          this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1] + ',' + args[2]);
+          break;
+        case 'setVolume':
+          this.ws.next('MPD_API_SET_VOLUME,' + args[0]);
+          break;
+        case 'setSeek':
+          this.ws.next('MPD_API_SET_SEEK,' + args[0] + ',' + args[1]);
+          break;
+        case 'toggleConsume':
+          this.ws.next('MPD_API_TOGGLE_CONSUME,' + args[0]);
+          break;
+        case 'toggleRandom':
+          this.ws.next('MPD_API_TOGGLE_RANDOM,' + args[0]);
+          break;
+        case 'toggleSingle':
+          this.ws.next('MPD_API_TOGGLE_SINGLE,' + args[0]);
+          break;
+        case 'toggleRepeat':
+          this.ws.next('MPD_API_TOGGLE_REPEAT,' + args[0]);
+          break;
+        case 'playTrack':
+          this.ws.next('MPD_API_PLAY_TRACK,' + args[0]);
+          break;
         default:
           console.log('command not found:', command);
       }

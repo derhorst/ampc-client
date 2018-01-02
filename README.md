@@ -14,6 +14,10 @@ $ npm start
 
 # dev build
 $ npm run build.dev
-# prod build, will output the production application in `dist/prod`
+
+# prod build
+
+prod build, will output the production application in `dist/prod`
 the produced code can be served from the `htdocs` folder of ampc-server
+
 $ npm run build.prod

@@ -49,7 +49,7 @@ export class ProjectConfig extends SeedConfig {
       packageMeta: {
        defaultExtension: 'js',
        main: 'lib/index',
-      }
+     }
 
     }];
 
