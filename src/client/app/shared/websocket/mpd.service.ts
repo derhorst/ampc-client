@@ -81,6 +81,9 @@ export class MpdService {
               case 'album_artists':
                 this._library.setAlbumArtists(wsData.data);
                 break;
+              case 'all_meta':
+                this._library.setAllMeta(wsData.data);
+                break;
               default:
             }
             console.log('WS:', wsData);
@@ -117,6 +120,8 @@ export class MpdService {
     | 'playTrack'
     | 'getAlbumArtists'
     | 'updateQueue'
+    | 'sendListAllMeta'
+    | 'getBrowse'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -168,6 +173,12 @@ export class MpdService {
           break;
         case 'updateQueue':
           this.ws.next('MPD_API_GET_QUEUE,0');
+          break;
+        case 'sendListAllMeta':
+          this.ws.next('MPD_API_SEND_LIST_ALL_META');
+          break;
+        case 'getBrowse':
+          this.ws.next('MPD_API_GET_BROWSE,' + args[0] + ',' + args[1]);
           break;
         default:
           console.log('command not found:', command);

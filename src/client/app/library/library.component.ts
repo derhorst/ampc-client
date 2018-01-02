@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Song } from '../shared/models/song.model';
@@ -17,37 +17,39 @@ import { CurrentSongService } from '../shared/state/current-song.service';
   styleUrls: ['library.component.css']
 })
 
-export class LibraryComponent implements OnInit {
+export class LibraryComponent implements OnInit, OnDestroy {
   song: ReplaySubject<Song>;
   artists: string[];
   currentSong: Song;
   showControls = true;
   library: any;
   open: any = {};
+  libraryView: string = localStorage.getItem('libraryView');
+
+  subscriptions: any[] = [];
 
   constructor(private _currentSong: CurrentSongService, private _mpd: MpdService, private _library: LibraryService) {}
 
   ngOnInit() {
-    this.song = this._currentSong.getCurrentSong();
-    this.song.subscribe(
+    this.subscriptions.push(this._currentSong.getCurrentSong().subscribe(
       (song: Song) => {
-        if (!this.library) {
-          this._mpd.sendCommand('getAlbumArtists');
-        }
-        if (!this.currentSong || this.currentSong.album_artist !== song.album_artist) {
-          this._mpd.sendCommand('getArtistAlbums', [song.album_artist]);
-        }
         this.currentSong = song;
       },
       err => {
         console.log(err);
       }
-    );
+    ));
 
-    this._library.getAlbumArtists().subscribe(data => {
-      this.library = data;
-      this.artists = Object.keys(this.library);
-    });
+    if (this.libraryView !== 'albums') {
+      this.subscriptions.push(this._library.getAlbumArtists().subscribe(data => {
+        this.library = data;
+        this.artists = Object.keys(this.library);
+      }));
+    } else {
+      this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+        this.library = data;
+      }));
+    }
   }
 
   getArtists() {
@@ -68,8 +70,14 @@ export class LibraryComponent implements OnInit {
     if (this.open[albumArtist]) {
       delete this.open[albumArtist];
     } else {
-      this.getArtistAlbums(albumArtist);
       this.open[albumArtist] = true;
+      if (this.libraryView !== 'albums') {
+        this.getArtistAlbums(albumArtist);
+      }
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

@@ -23,6 +23,7 @@ import { YearPipe } from './state/year.pipe';
 import { FormatDurationPipe } from './state/format-duration.pipe';
 import { GetCoverUrlPipe } from './state/get-cover-url.pipe';
 import { DuplicateAlbumFilterPipe } from './state/duplicate-album-filter.pipe';
+import { TrackNumberPipe } from './queue/track-number.pipe';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -31,9 +32,10 @@ import { DuplicateAlbumFilterPipe } from './state/duplicate-album-filter.pipe';
 @NgModule({
   imports: [CommonModule, RouterModule, InlineSVGModule],
   declarations: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
-     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent],
+     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent, TrackNumberPipe],
   exports: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
-    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent]
+    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent,
+     TrackNumberPipe]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

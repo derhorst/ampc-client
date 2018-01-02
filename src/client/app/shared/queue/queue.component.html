@@ -7,7 +7,7 @@
   </div>
   <div class="song-row" [ngClass]="{active: currentSong && song.pos === currentSong.pos, 'selected': song.pos === selected?.pos &&
    song.id === selected?.id}">
-    {{ str_pad_left(song.track, '0', 2) }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.pos === currentSong.pos">&#9205;&nbsp;</div>{{ song.title }}
+    {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.pos === currentSong.pos">&#9205;&nbsp;</div>{{ song.title }}
     <span class="song-duration">{{ song.duration | formatDuration }}</span>
   </div>
 </div>
