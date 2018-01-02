@@ -38,43 +38,6 @@
   position: relative;
 }
 
-.album-controls {
-  display: none;
-  float: left;
-  position: absolute;
-  left: 13%;
-  bottom: 5%;
-  width: 85%;
-  height: 17%;
-  z-index: 1;
-  padding: 5px;
-}
-
-.cover:hover > .album-controls {
-  display: inline-flex;
-}
-
-.cover:hover > .album-controls > img {
-  background: rgba(192, 192, 193, 0.8)
-}
-
-.album-controls > img {
-  width: 31%;
-  margin: 0 1%;
-}
-
-.album-controls > img:hover {
-  background: rgba(255, 255, 255, 1) !important;
-}
-
-.cover > img {
-  max-width: 100%;
-  max-height: 100%;
-  margin-left: 1em;
-  margin-top: 1em;
-}
-
-
 .song-info {
   overflow: hidden;
   width: 100%;

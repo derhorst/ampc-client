@@ -1,8 +1,15 @@
-<div class="album-list-caption" *ngIf="songs && songs.length > 1">{{ songs[0].album_artist }} &#8250; Albums</div>
+<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !libraryView">{{ songs[0].album_artist }} &#8250; Albums</div>
 <div class="album-list flex-container">
-  <ul class="cards" *ngIf="songs && currentSong?.album_artist === songs[0].album_artist">
-    <li class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
-      <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
-    </li>
+  <ul class="cards" *ngIf="songs && currentSong?.album_artist === songs[0].album_artist || libraryView">
+    <span *ngIf="!libraryView">
+      <li class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
+        <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
+      </li>
+    </span>
+    <span *ngIf="libraryView">
+      <li class="cards-item" *ngFor="let song of songs">
+        <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
+      </li>
+    </span>
   </ul>
 </div>

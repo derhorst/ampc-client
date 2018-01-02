@@ -5,6 +5,7 @@ import { WebsocketService } from './websocket.service';
 import { StateService } from '../state/state.service';
 import { QueueService } from '../state/queue.service';
 import { CurrentSongService } from '../state/current-song.service';
+import { LibraryService } from '../library/library.service';
 
 import { Config } from './../../shared/config/env.config';
 
@@ -20,7 +21,7 @@ export class MpdService {
    * Constructor of the logging service
    */
   constructor(private _websocket: WebsocketService, private _state: StateService, private _currentSong: CurrentSongService,
-    private _queue: QueueService) {
+    private _queue: QueueService, private _library: LibraryService) {
     this.listen();
   }
 
@@ -57,22 +58,31 @@ export class MpdService {
       if (response) {
           try {
             const wsData = JSON.parse(response.data);
-            if (wsData.type === 'state') {
-              this._state.setState(wsData.data);
+            switch (wsData.type) {
+              case 'state':
+                this._state.setState(wsData.data);
+                break;
+              case 'song_change':
+                this._currentSong.setCurrentSong(wsData.data);
+                break;
+              case 'queue':
+                this._queue.setQueue(wsData.data);
+                break;
+              case 'song_change':
+                this._currentSong.setCurrentSong(wsData.data);
+                break;
+              case 'artist_albums':
+                this._currentSong.setArtistAlbums(wsData.data);
+                this._library.setAlbumsOfAlbumArtist(wsData.data);
+                break;
+              case 'update_queue':
+                this.sendCommand('updateQueue');
+                break;
+              case 'album_artists':
+                this._library.setAlbumArtists(wsData.data);
+                break;
+              default:
             }
-            if (wsData.type === 'song_change') {
-              this._currentSong.setCurrentSong(wsData.data);
-            }
-            if (wsData.type === 'queue') {
-              this._queue.setQueue(wsData.data);
-            }
-            if (wsData.type === 'artist_albums') {
-              this._currentSong.setArtistAlbums(wsData.data);
-            }
-            if (wsData.type === 'update_queue') {
-              this.ws.next('MPD_API_GET_QUEUE,0');
-            }
-
             console.log('WS:', wsData);
           } catch (e) {
             console.log('WS error:', e); // error in the above string (in this case, yes)!
@@ -90,7 +100,8 @@ export class MpdService {
   }
 
   sendCommand(
-    command: 'artistChanged'
+    command:
+    'getArtistAlbums'
     | 'playPause'
     | 'nextSong'
     | 'prevSong'
@@ -104,11 +115,13 @@ export class MpdService {
     | 'toggleSingle'
     | 'toggleRepeat'
     | 'playTrack'
+    | 'getAlbumArtists'
+    | 'updateQueue'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
       switch (command) {
-        case 'artistChanged':
+        case 'getArtistAlbums':
           this.ws.next('MPD_API_GET_ARTIST_ALBUMS,' + args[0]);
           break;
         case 'playPause':
@@ -149,6 +162,12 @@ export class MpdService {
           break;
         case 'playTrack':
           this.ws.next('MPD_API_PLAY_TRACK,' + args[0]);
+          break;
+        case 'getAlbumArtists':
+          this.ws.next('MPD_API_GET_ALBUM_ARTISTS');
+          break;
+        case 'updateQueue':
+          this.ws.next('MPD_API_GET_QUEUE,0');
           break;
         default:
           console.log('command not found:', command);

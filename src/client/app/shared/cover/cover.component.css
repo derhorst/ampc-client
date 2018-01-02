@@ -49,6 +49,7 @@
   margin: 0.5em;
   color: #FFFFFF;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .album-controls > div {

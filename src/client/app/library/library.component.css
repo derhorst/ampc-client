@@ -1,5 +1,16 @@
 :host {
-  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }
 
 h2 {
@@ -18,7 +29,115 @@ h2 {
   overflow: hidden;
   top: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 16em 34em 2fr;
+  grid-template-rows: 16em 2fr;
   grid-gap: 12px;
+}
+
+.cover {
+  margin-left: 1em;
+  margin-top: 1em;
+  height: 16em;
+  position: relative;
+}
+
+.cover > img {
+  max-width: 100%;
+  max-height: 100%;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+.song-info {
+  overflow: hidden;
+  width: 100%;
+  max-height: 25em;
+}
+.song-info > h1 {
+  color: #fff;
+  font-size: 1.5em !important;
+  /*font-weight: 400;*/
+  max-height: 2.2em;
+  max-width: 25em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  /*white-space: nowrap;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.song-info > h2 {
+  color: #fff;
+  font-size: 1.2em !important;
+  max-height: 2.2em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  /*white-space: nowrap;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.box {
+  /*background-color: #444;
+  color: #fff;*/
+  padding: 1em;
+}
+
+.library {
+  grid-row: auto / span 2;
+  padding-bottom: 0.6em !important;
+  margin-top: 0.8em;
+  margin-bottom: 1em;
+  /*background-color: blue;*/
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.library > h2 {
+  color: #fff;
+  font-size: 1.5em !important;
+  max-height: 2.2em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.library-container {
+  padding: 0.5em;
+}
+
+.queue-wrapper {
+  color: #fff;
+  padding-bottom: 0.6em !important;
+  grid-column: auto / span 2;
+  /*background-color: red;*/
+  overflow-y: hidden;
+}
+
+.queue {
+  margin-left: 1em;
+  overflow-y: auto;
+}
+
+.controls-visible {
+  padding-bottom: 3em;
+}
+
+.album-artist-label {
+  color: white;
+  font-size: 1.32em;
+  width: 100%;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 16px;
+}
+
+.caret-down {
+  transform: rotate(90deg);
+  display: inline-block;
+}
+
+.albums {
+  padding-left: 0.95em;
 }

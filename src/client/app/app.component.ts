@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this._currentSong.getCurrentSong().subscribe(
         (song: Song) => {
           if (!this.currentSong || this.currentSong.album_artist !== song.album_artist) {
-            this._mpd.sendCommand('artistChanged', [song.album_artist]);
+            this._mpd.sendCommand('getArtistAlbums', [song.album_artist]);
           }
           this.currentSong = song;
         },

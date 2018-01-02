@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   currentSong: Song;
   showControls = true;
 
+  albumSongs: Song[];
+
   constructor(private _currentSong: CurrentSongService, private _mpd: MpdService) {}
 
   ngOnInit() {
@@ -27,12 +29,17 @@ export class HomeComponent implements OnInit {
     this.song.subscribe(
       (song: Song) => {
         if (!this.currentSong || this.currentSong.album_artist !== song.album_artist) {
-          this._mpd.sendCommand('artistChanged', [song.album_artist]);
+          this._mpd.sendCommand('getArtistAlbums', [song.album_artist]);
         }
         this.currentSong = song;
       },
       err => {
         console.log(err);
+      }
+    );
+
+    this._currentSong.getArtistAlbums().subscribe((songs: Song[]) => {
+        this.albumSongs = songs;
       }
     );
   }

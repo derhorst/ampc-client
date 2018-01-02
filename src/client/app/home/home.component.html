@@ -1,12 +1,6 @@
 <div class="wrapper" [ngClass]="{'controls-visible': showControls}">
   <div class="box cover">
     <sd-cover [song]="currentSong"></sd-cover>
-    <!-- <img [src]="currentSong?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';"> -->
-    <!-- <div class="album-controls">
-      <img src="assets/svg/play.svg">
-      <img src="assets/svg/insert.svg">
-      <img src="assets/svg/insert-end.svg">
-    </div> -->
   </div>
   <div class="box song-info">
     <h1>{{ currentSong?.title }}</h1>
@@ -14,7 +8,7 @@
     <h2>{{ currentSong?.album }} {{ currentSong?.date | year }}</h2>
   </div>
   <div class="box album-list">
-    <sd-album-list></sd-album-list>
+    <sd-album-list [songs]="albumSongs" [currentSong]="currentSong" [libraryView]="false"></sd-album-list>
   </div>
   <div class="box queue-wrapper">
     <sd-queue class="queue"></sd-queue>
