@@ -64,53 +64,33 @@
   opacity: 1;
 }
 
-.flex-container > span, .flex-container > span > span {
+.album-list-wrapper {
   height: 100%;
-  display: inline-block;
-}
-
-.flex-container {
-  overflow-x: hidden;
-  height: 100%;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
+  overflow: hidden;
 }
 
 .cards {
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: space-between;
-  align-items: space-between;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-
-  display: flex;
-  overflow-x: auto;
-  /*flex-wrap: wrap;*/
-  list-style: none;
-  margin: 0;
-  margin-bottom: 0.4em;
-  padding: 0;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  padding-right: 1em;
 }
 
 .cards-item {
-  display: flex;
   margin: 1rem;
-  /* height: 300px; */
-  width: 14em;
-  display: inline-block;
-  /*background-color: #4c4c4c;*/
-  /* margin-bottom: 2rem; */
+  flex-basis: 11em;
+  min-width: 10em;
+  flex-grow: 1;
+}
+
+.cards-fixed {
+  flex-basis: 12em;
+  flex-grow: 0;
 }
 
 .card-title {

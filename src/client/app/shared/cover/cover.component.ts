@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, HostListener, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 import { Config } from './../../shared/config/env.config';
@@ -8,7 +8,7 @@ import { Song } from '../models/song.model';
 import { MpdService } from '../websocket/mpd.service';
 
 /**
- * This class represents the navigation bar component.
+ * This class represents the cover component.
  */
 @Component({
   moduleId: module.id,
@@ -17,10 +17,18 @@ import { MpdService } from '../websocket/mpd.service';
   styleUrls: ['cover.component.css'],
 })
 
+
 export class CoverComponent {
   @Input() song: Song;
   @Input() contrast: 'normal' | 'low' | 'high' = 'normal';
   @Input() showControls = true;
+
+  mouseover: boolean;
+
+  @HostListener('mouseover')
+  onMouseOver() {
+    this.mouseover = true;
+  }
 
   constructor(private _mpd: MpdService) {
   }

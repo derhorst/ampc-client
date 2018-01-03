@@ -21,5 +21,7 @@ import { Song } from '../models/song.model';
 export class AlbumListComponent {
   @Input() songs: Song[];
   @Input() currentSong: Song;
-  @Input() libraryView = true;
+  @Input() library = true;
+
+  libraryView: string = localStorage.getItem('libraryView');
 }

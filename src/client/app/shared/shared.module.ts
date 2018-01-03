@@ -12,7 +12,6 @@ import { CurrentSongService } from './state/current-song.service';
 import { QueueService } from './state/queue.service';
 import { LibraryService } from './library/library.service';
 
-import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
@@ -31,9 +30,9 @@ import { TrackNumberPipe } from './queue/track-number.pipe';
 
 @NgModule({
   imports: [CommonModule, RouterModule, InlineSVGModule],
-  declarations: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
+  declarations: [NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
      GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent, TrackNumberPipe],
-  exports: [ToolbarComponent, NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
+  exports: [NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
     CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent,
      TrackNumberPipe]
 })

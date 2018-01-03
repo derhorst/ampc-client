@@ -1,15 +1,14 @@
-<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !libraryView">{{ songs[0].album_artist }} &#8250; Albums</div>
-<div class="album-list flex-container">
-  <ul class="cards" *ngIf="libraryView || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
-    <span *ngIf="!libraryView">
-      <li class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
-        <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
-      </li>
-    </span>
-    <span *ngIf="libraryView">
-      <li class="cards-item" *ngFor="let song of songs">
-        <sd-cover [song]="song"></sd-cover>
-      </li>
-    </span>
-  </ul>
+<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !library">{{ songs[0].album_artist }} &#8250; Albums</div>
+
+<div class="album-list-wrapper"  *ngIf="library || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
+  <div *ngIf="!library" class="cards">
+    <div class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
+      <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
+    </div>
+  </div>
+  <div class="cards" *ngIf="library">
+    <div class="cards-item" [ngClass]="{'cards-fixed': libraryView !== 'albums'}" *ngFor="let song of songs">
+      <sd-cover [song]="song"></sd-cover>
+    </div>
+  </div>
 </div>

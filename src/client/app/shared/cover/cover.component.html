@@ -1,8 +1,8 @@
 <div class="cover">
-  <div *ngIf="showControls" class="album-controls play-album">
+  <div *ngIf="showControls && mouseover" class="album-controls play-album">
     <div inlineSVG="assets/svg/media-playback-start.svg" (click)="playAlbum()"></div>
   </div>
-  <div *ngIf="showControls" class="album-controls queue-album">
+  <div *ngIf="showControls && mouseover" class="album-controls queue-album">
     <div inlineSVG="assets/svg/list-add.svg" (click)="queueAlbum()"></div>
   </div>
   <img [ngClass]="{'low-contrast':contrast === 'low', 'high-contrast':contrast === 'high'}" [src]="song?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';">

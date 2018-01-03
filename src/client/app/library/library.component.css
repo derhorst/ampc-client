@@ -103,13 +103,15 @@ h2 {
 .library-wrapper {
   overflow: hidden;
   position: relative;
+  padding-bottom: 3em;
   height: 100%;
 }
 
 .library-container {
   padding: 0.5em;
   margin-top: 1em;
-  overflow: scroll;
+  overflow-y: scroll;
+
   position: relative;
   height: 100%;
 }
