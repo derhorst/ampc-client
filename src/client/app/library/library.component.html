@@ -10,26 +10,28 @@
   <div class="library">
     <div class="library-caption">
       <h2>Library</h2>
-        <input type="text" name="lname" placeholder="Filter" #filterTerm>
-        <h2 class="clear-filter" (click)="filterTerm.value = ''">X</h2>
+        <input type="text" name="lname" placeholder="Filter" [(ngModel)]="filter">
+        <h2 class="clear-filter" (click)="filter = ''">X</h2>
     </div>
-    <div class="library-wrapper">
+    <div *ngIf="!selectedAlbum" class="library-wrapper">
       <div *ngIf="libraryView !== 'albums'" class="library-container">
-        <div *ngFor="let artist of artists | libraryFilter : filterTerm.value : library">
+        <div *ngFor="let artist of artists | libraryFilter : filter : library">
           <div class="artists" *ngIf="artist !== ''">
             <span class="album-artist-label" (click)="toggleAlbumView(artist)">
               <span *ngIf="!open[artist]">› </span>
               <span class="caret-down" *ngIf="open[artist]">› </span>
               {{ artist }}</span>
             <div class="albums" *ngIf="library[artist] && open[artist]">
-              <sd-album-list [songs]="library[artist]"></sd-album-list>
+              <sd-album-list [songs]="library[artist] | filterArtistAlbums"></sd-album-list>
             </div>
           </div>
         </div>
       </div>
-      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="library | albumViewFilter : filterTerm.value"></sd-album-list>
+      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="albumArtSongs | albumViewFilter : filter"></sd-album-list>
     </div>
-
+    <div *ngIf="selectedAlbum">
+      <h2>ALBUM!</h2>
+    </div>
   </div>
   <div class="box queue-wrapper">
     <sd-queue class="queue"></sd-queue>

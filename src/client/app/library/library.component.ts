@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Song } from '../shared/models/song.model';
@@ -22,15 +23,32 @@ export class LibraryComponent implements OnInit, OnDestroy {
   artists: string[];
   currentSong: Song;
   showControls = true;
-  library: any;
-  open: any = {};
+  library: {[key: string]: Song[]};
+  albumArtSongs: Song[];
+  open: {[key: string]: boolean} = {};
   libraryView: string = localStorage.getItem('libraryView');
+  filter = '';
+  selectedAlbumArtist: string;
+  selectedAlbum: string;
+  album: Song[];
 
   subscriptions: any[] = [];
 
-  constructor(private _currentSong: CurrentSongService, private _mpd: MpdService, private _library: LibraryService) {}
+  constructor(private _route: ActivatedRoute, private _currentSong: CurrentSongService, private _mpd: MpdService,
+    private _library: LibraryService) {}
 
   ngOnInit() {
+    this.subscriptions.push(this._route.params.subscribe((params: {[key: string]: string}) => {
+      if (params.albumArtist && !params.album) {
+        this.filter = params.albumArtist;
+      }
+      if (params.albumArtist && params.album) {
+        this.selectedAlbumArtist = params.albumArtist;
+        this.selectedAlbum = params.album;
+        this.getAlbum(this.selectedAlbumArtist, this.selectedAlbum);
+      }
+    }));
+
     this.subscriptions.push(this._currentSong.getCurrentSong().subscribe(
       (song: Song) => {
         this.currentSong = song;
@@ -40,16 +58,15 @@ export class LibraryComponent implements OnInit, OnDestroy {
       }
     ));
 
-    if (this.libraryView !== 'albums') {
-      this.subscriptions.push(this._library.getAlbumArtists().subscribe(data => {
-        this.library = data;
-        this.artists = Object.keys(this.library);
-      }));
-    } else {
-      this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
-        this.library = data;
-      }));
-    }
+    this.subscriptions.push(this._library.getAlbumArtists().subscribe(data => {
+      this.library = data;
+      this.artists = Object.keys(this.library);
+    }));
+
+    this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+      this.albumArtSongs = data;
+    }));
+
   }
 
   getArtists() {
@@ -64,6 +81,10 @@ export class LibraryComponent implements OnInit, OnDestroy {
     if (!this.library[albumArtist]) {
       this._mpd.sendCommand('getArtistAlbums', [albumArtist]);
     }
+  }
+
+  getAlbum(albumArtist: string, album: string) {
+//
   }
 
   toggleAlbumView(albumArtist: string) {

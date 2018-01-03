@@ -73,7 +73,7 @@ export class MpdService {
                 break;
               case 'artist_albums':
                 this._currentSong.setArtistAlbums(wsData.data);
-                this._library.setAlbumsOfAlbumArtist(wsData.data);
+                this._library.setAlbumsOfAlbumArtist(wsData.data, true);
                 break;
               case 'update_queue':
                 this.sendCommand('updateQueue');
@@ -82,7 +82,7 @@ export class MpdService {
                 this._library.setAlbumArtists(wsData.data);
                 break;
               case 'all_meta':
-                this._library.setAllMeta(wsData.data);
+                this._library.setAlbumsOfAlbumArtist(wsData.data);
                 break;
               default:
             }

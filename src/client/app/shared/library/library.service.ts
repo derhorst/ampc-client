@@ -5,7 +5,7 @@ import { Song } from '../models/song.model';
 
 @Injectable()
 export class LibraryService {
-  library: any;
+  library: {[album_artist: string]: {[album: string]: Song[]}};
   albumArtSongs: Song[] = [];
   private libraryObservable: ReplaySubject<any> = new ReplaySubject(1);
   private albumArtSongsObservable: ReplaySubject<any> = new ReplaySubject(1);
@@ -21,14 +21,7 @@ export class LibraryService {
     this.libraryObservable.next(this.library);
   }
 
-  setAlbumsOfAlbumArtist(albums: Song[]) {
-    if (this.library && albums && albums[0]) {
-      this.library[albums[0].album_artist] = albums;
-      this.libraryObservable.next(this.library);
-    }
-  }
-
-  setAllMeta(songs: Song[]) {
+  setAlbumsOfAlbumArtist(songs: Song[], onlyOneSongPerAlbum?: boolean) {
     for (let i = 0; i < songs.length; i++) {
       if (!this.library) {
         this.library = {};
@@ -43,6 +36,7 @@ export class LibraryService {
       }
       // add song
       this.library[songs[i].album_artist][songs[i].album].push(songs[i]);
+
       if (i === 0 || (i > 1 && (songs[i].album !== songs[i - 1].album) || songs[i].album_artist !== songs[i - 1].album_artist)) {
         const song: any = {};
         song.album_artist = songs[i].album_artist;
@@ -52,17 +46,7 @@ export class LibraryService {
       }
     }
     this.albumArtSongsObservable.next(this.albumArtSongs);
-    console.log('META', this.library);
   }
-
-  // compare(a: Song, b: Song) {
-  //   console.log('comp')
-  //   if (a.album_artist < b.album_artist)
-  //     return -1;
-  //   if (a.album_artist > b.album_artist)
-  //     return 1;
-  //   return 0;
-  // }
 
   getAlbumArtSongs() {
     return this.albumArtSongsObservable;

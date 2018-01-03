@@ -7,10 +7,11 @@ import { SharedModule } from '../shared/shared.module';
 
 import { LibraryFilterPipe } from './library-filter.pipe';
 import { AlbumViewFilterPipe } from './album-view-filter.pipe';
+import { FilterArtistAlbumsPipe } from './filter-artist-albums.pipe';
 
 @NgModule({
   imports: [CommonModule, LibraryRoutingModule, FormsModule, SharedModule],
-  declarations: [LibraryComponent, LibraryFilterPipe, AlbumViewFilterPipe],
-  exports: [LibraryComponent, LibraryFilterPipe, AlbumViewFilterPipe]
+  declarations: [LibraryComponent, LibraryFilterPipe, AlbumViewFilterPipe, FilterArtistAlbumsPipe],
+  exports: [LibraryComponent, LibraryFilterPipe, AlbumViewFilterPipe, FilterArtistAlbumsPipe]
 })
 export class LibraryModule { }
