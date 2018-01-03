@@ -22,7 +22,7 @@ export class LibraryService {
   }
 
   setAlbumsOfAlbumArtist(albums: Song[]) {
-    if (this.library) {
+    if (this.library && albums && albums[0]) {
       this.library[albums[0].album_artist] = albums;
       this.libraryObservable.next(this.library);
     }
@@ -44,7 +44,11 @@ export class LibraryService {
       // add song
       this.library[songs[i].album_artist][songs[i].album].push(songs[i]);
       if (i === 0 || (i > 1 && (songs[i].album !== songs[i - 1].album) || songs[i].album_artist !== songs[i - 1].album_artist)) {
-        this.albumArtSongs.push(songs[i]);
+        const song: any = {};
+        song.album_artist = songs[i].album_artist;
+        song.album = songs[i].album;
+        song.file = songs[i].file;
+        this.albumArtSongs.push(song);
       }
     }
     this.albumArtSongsObservable.next(this.albumArtSongs);
