@@ -86,7 +86,7 @@ export class MpdService {
                 break;
               default:
             }
-            console.log('WS:', wsData);
+            // console.log('WS:', wsData);
           } catch (e) {
             console.log('WS error:', e); // error in the above string (in this case, yes)!
           }

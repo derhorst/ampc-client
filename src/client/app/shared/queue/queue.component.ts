@@ -72,7 +72,7 @@ export class QueueComponent implements OnInit {
 
       setTimeout(() => {
         this.queueChanged = false;
-      }, 1500);
+      }, 100);
     }
   }
 
