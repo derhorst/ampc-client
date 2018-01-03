@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 /**
  * This class represents the lazy loaded BrowseComponent.
@@ -9,4 +9,21 @@ import { Component } from '@angular/core';
   templateUrl: 'settings.component.html',
   styleUrls: ['settings.component.css']
 })
-export class SettingsComponent { }
+export class SettingsComponent implements OnInit {
+  albumView = false;
+
+  ngOnInit() {
+    if (localStorage.getItem('libraryView') === 'albums') {
+      this.albumView = true;
+    }
+  }
+
+  toggleAlbumView() {
+    if (localStorage.getItem('libraryView') === 'albums') {
+      localStorage.setItem('libraryView', 'artist');
+    } else {
+      localStorage.setItem('libraryView', 'albums');
+    }
+  }
+
+}

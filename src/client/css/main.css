@@ -23,9 +23,18 @@ body {
 /* Set up a default font and some padding to provide breathing room */
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #fff;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h2 {
+  font-size: 1.5em;
+  max-height: 2.2em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 p {
@@ -44,14 +53,6 @@ ul {
 li {
   font-weight: 400;
   margin-top: 4px;
-}
-
-input {
-  border: 1px solid #106cc8;
-  font-size: 14px;
-  height: 40px;
-  outline: none;
-  padding: 8px;
 }
 
 button {
