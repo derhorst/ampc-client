@@ -5,6 +5,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Config } from './../../shared/config/env.config';
 
 import { LibraryService } from '../library/library.service';
+import { MpdService } from '../websocket/mpd.service';
 import { Song } from '../models/song.model';
 
 /**
@@ -34,9 +35,10 @@ export class AlbumListComponent {
   albumViewOpen = false;
   album: Song[];
   albumDuration = 0;
+  selected: {track: string, file: string} = {track: null, file: null};
   subscriptions: any[] = [];
 
-  constructor(private _library: LibraryService) {}
+  constructor(private _library: LibraryService, private _mpd: MpdService) {}
 
   albumOpen(song: Song) {
     this.getAlbum(song);
@@ -51,5 +53,19 @@ export class AlbumListComponent {
       }
       this.albumViewOpen = true;
     }));
+  }
+
+  playTrack(song: Song) {
+    this._mpd.sendCommand('addPlayTrack', [song.file]);
+  }
+
+  selectTrack(song: Song) {
+    if (this.selected.track && this.selected.file === song.file && this.selected.track === song.track) {
+      this.selected.track = null;
+      this.selected.file = null;
+    } else {
+      this.selected.track = song.track;
+      this.selected.file = song.file;
+    }
   }
 }

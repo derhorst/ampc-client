@@ -6,15 +6,10 @@ export class FormatDurationPipe implements PipeTransform {
 
   transform(duration: number): string {
     if (duration) {
-      // const hours = Math.floor((duration / 60) / 60);
-      // console.log(hours)
-      // const minutes = Math.floor((duration - hours * 60) / 60);
-      // const seconds = (duration - minutes * 60);
       const hours = Math.floor(duration / 3600);
       const totalSeconds = duration % 3600;
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
-      console.log(seconds)
       let finalTime = minutes + ':' + str_pad_left('' + seconds, '0', 2);
 
       if (hours !== 0) {
