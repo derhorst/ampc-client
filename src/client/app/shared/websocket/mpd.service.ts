@@ -150,7 +150,7 @@ export class MpdService {
           this.ws.next('MPD_API_ADD_PLAY_TRACK,' + args[0]);
           break;
         case 'addArtistAlbum':
-          this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1] + ',' + args[2]);
+          this.ws.next('MPD_API_ADD_ARTIST_ALBUM,' + args[0] + ',' + args[1].replace(',', '^,') + ',' + args[2].replace(',', '^,'));
           break;
         case 'setVolume':
           this.ws.next('MPD_API_SET_VOLUME,' + args[0]);
