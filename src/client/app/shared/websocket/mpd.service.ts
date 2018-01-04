@@ -28,6 +28,7 @@ export class MpdService {
   listen() {
     let pcol;
     let u = document.URL;
+    let connected = false;
 
     /*
     /* We open the websocket encrypted if this page came on an
@@ -57,6 +58,10 @@ export class MpdService {
     this.ws.subscribe((response: MessageEvent) => {
       if (response) {
           try {
+            if (!connected) {
+              connected = true;
+              this.sendCommand('sendListAllMeta');
+            }
             const wsData = JSON.parse(response.data);
             switch (wsData.type) {
               case 'state':
@@ -82,7 +87,7 @@ export class MpdService {
                 this._library.setAlbumArtists(wsData.data);
                 break;
               case 'all_meta':
-                this._library.setAlbumsOfAlbumArtist(wsData.data);
+                this._library.setAlbumsOfAlbumArtist(wsData.data, false);
                 break;
               default:
             }

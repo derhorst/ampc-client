@@ -13,7 +13,7 @@
         <input type="text" name="lname" placeholder="Filter" [(ngModel)]="filter">
         <h2 class="clear-filter" (click)="filter = ''">X</h2>
     </div>
-    <div *ngIf="!selectedAlbum" class="library-wrapper">
+    <div class="library-wrapper">
       <div *ngIf="libraryView !== 'albums'" class="library-container">
         <div *ngFor="let artist of artists | libraryFilter : filter : library">
           <div class="artists" *ngIf="artist !== ''">
@@ -22,15 +22,12 @@
               <span class="caret-down" *ngIf="open[artist]">› </span>
               {{ artist }}</span>
             <div class="albums" *ngIf="library[artist] && open[artist]">
-              <sd-album-list [songs]="library[artist] | filterArtistAlbums"></sd-album-list>
+              <sd-album-list [songs]="library[artist] | async | filterArtistAlbums" [inLibraryView]="true"></sd-album-list>
             </div>
           </div>
         </div>
       </div>
-      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="albumArtSongs | albumViewFilter : filter"></sd-album-list>
-    </div>
-    <div *ngIf="selectedAlbum">
-      <h2>ALBUM!</h2>
+      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="albumArtSongs | albumViewFilter : filter" [showAlbum]="showAlbum" [inLibraryView]="true"></sd-album-list>
     </div>
   </div>
   <div class="box queue-wrapper">

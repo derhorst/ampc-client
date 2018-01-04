@@ -1,14 +1,34 @@
-<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !library">{{ songs[0].album_artist }} &#8250; Albums</div>
+<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !inLibraryView">{{ songs[0].album_artist }} &#8250; Albums</div>
 
-<div class="album-list-wrapper"  *ngIf="library || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
-  <div *ngIf="!library" class="cards">
-    <div class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
-      <sd-cover [song]="song" [contrast]="'low'"></sd-cover>
+<div class="album-list-wrapper" *ngIf="inLibraryView || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
+  <div *ngIf="albumViewOpen" class="album-view">
+    <div class="back" (click)="albumViewOpen = false"><h2>‹ Back</h2></div>
+    <div class="album-info">
+      <div class="album-view-img">
+        <sd-cover [inLibraryView]="inLibraryView" *ngIf="album" [contrast]="contrast" [song]="album[0]" (showSongs)="albumOpen($event)"></sd-cover>
+      </div>
+      <div class="album-view-caption">
+        <h2>{{ album[0].album_artist }}</h2>
+        <h2>{{ album[0].album }} {{ album[0].date | year }}</h2>
+        <h2>Tracks: {{ album.length }} - {{ albumDuration | formatDuration }}</h2>
+      </div>
+    </div>
+    <div *ngFor="let song of album">
+      <div class="song-row" [ngClass]="{'selected': song.pos === selected?.pos &&
+       song.id === selected?.id}">
+        {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.pos === currentSong.pos">▸&nbsp;</div>{{ song.title }}
+        <span class="song-duration">{{ song.duration | formatDuration }}</span>
+      </div>
     </div>
   </div>
-  <div class="cards" *ngIf="library">
+  <div *ngIf="!inLibraryView" class="cards">
+    <div class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
+      <sd-cover [inLibraryView]="inLibraryView" [song]="song" [contrast]="'low'"></sd-cover>
+    </div>
+  </div>
+  <div class="cards" *ngIf="inLibraryView">
     <div class="cards-item" [ngClass]="{'cards-fixed': libraryView !== 'albums'}" *ngFor="let song of songs">
-      <sd-cover [song]="song"></sd-cover>
+      <sd-cover [inLibraryView]="inLibraryView" [contrast]="contrast" [song]="song" (showSongs)="albumOpen($event)"></sd-cover>
     </div>
   </div>
 </div>

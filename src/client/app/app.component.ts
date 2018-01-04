@@ -23,13 +23,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('libraryView', 'albums');
     this._currentSong.getCurrentSong().subscribe(
         (song: Song) => {
-          if (localStorage.getItem('libraryView') === 'albums' && !this._library.library) {
-            this._mpd.sendCommand('sendListAllMeta');
-          } else {
-            this._mpd.sendCommand('getAlbumArtists');
-          }
+          // if (localStorage.getItem('libraryView') !== 'albums') {
+          //   this._mpd.sendCommand('getAlbumArtists');
+          // }
           if (!this.currentSong || this.currentSong.album_artist !== song.album_artist) {
             this._mpd.sendCommand('getArtistAlbums', [song.album_artist]);
           }

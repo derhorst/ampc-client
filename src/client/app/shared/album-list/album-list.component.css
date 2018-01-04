@@ -67,6 +67,7 @@
 .album-list-wrapper {
   height: 100%;
   overflow: hidden;
+  padding-bottom: 1em;
 }
 
 .cards {
@@ -99,4 +100,41 @@
   font-weight: 300;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.album-view {
+  padding: 1em;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.back {
+  width: 100%;
+  cursor: pointer;
+}
+
+.album-view-caption {
+  padding: 0 1em 1em 1em;
+}
+
+.album-info {
+  display: inline-flex;
+  width: 100%;
+}
+
+.album-view-img {
+  flex-basis: 12em;
+  margin-bottom: 1em
+}
+
+.song-row {
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.song-row > span {
+  float: right;
 }

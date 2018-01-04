@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
@@ -15,7 +15,8 @@ import { CurrentSongService } from '../shared/state/current-song.service';
   moduleId: module.id,
   selector: 'sd-library',
   templateUrl: 'library.component.html',
-  styleUrls: ['library.component.css']
+  styleUrls: ['library.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LibraryComponent implements OnInit, OnDestroy {
@@ -31,11 +32,12 @@ export class LibraryComponent implements OnInit, OnDestroy {
   selectedAlbumArtist: string;
   selectedAlbum: string;
   album: Song[];
+  showAlbum: any;
 
   subscriptions: any[] = [];
 
-  constructor(private _route: ActivatedRoute, private _currentSong: CurrentSongService, private _mpd: MpdService,
-    private _library: LibraryService) {}
+  constructor(private _cd: ChangeDetectorRef, private _route: ActivatedRoute, private _currentSong: CurrentSongService,
+    private _mpd: MpdService, private _library: LibraryService) {}
 
   ngOnInit() {
     this.subscriptions.push(this._route.params.subscribe((params: {[key: string]: string}) => {
@@ -45,13 +47,15 @@ export class LibraryComponent implements OnInit, OnDestroy {
       if (params.albumArtist && params.album) {
         this.selectedAlbumArtist = params.albumArtist;
         this.selectedAlbum = params.album;
-        this.getAlbum(this.selectedAlbumArtist, this.selectedAlbum);
+        this.showAlbum = {'album_artist': this.selectedAlbumArtist, album: this.selectedAlbum};
+        this._cd.markForCheck();
       }
     }));
 
     this.subscriptions.push(this._currentSong.getCurrentSong().subscribe(
       (song: Song) => {
         this.currentSong = song;
+        this._cd.markForCheck();
       },
       err => {
         console.log(err);
@@ -61,12 +65,13 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this._library.getAlbumArtists().subscribe(data => {
       this.library = data;
       this.artists = Object.keys(this.library);
+      this._cd.markForCheck();
     }));
 
     this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
       this.albumArtSongs = data;
+      this._cd.markForCheck();
     }));
-
   }
 
   getArtists() {
@@ -83,10 +88,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAlbum(albumArtist: string, album: string) {
-//
-  }
-
   toggleAlbumView(albumArtist: string) {
     if (this.open[albumArtist]) {
       delete this.open[albumArtist];
@@ -99,6 +100,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log('DESTROY LIB');
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

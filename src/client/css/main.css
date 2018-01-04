@@ -37,6 +37,10 @@ h2 {
   text-transform: uppercase;
 }
 
+.hidden {
+  display: none;
+}
+
 p {
   font-weight: 400;
   letter-spacing: 0.01em;

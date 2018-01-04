@@ -1,4 +1,5 @@
-import { Component, Input, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 import { Config } from './../../shared/config/env.config';
@@ -22,6 +23,8 @@ export class CoverComponent {
   @Input() song: Song;
   @Input() contrast: 'normal' | 'low' | 'high' = 'normal';
   @Input() showControls = true;
+  @Input() inLibraryView = false;
+  @Output() showSongs = new EventEmitter();
 
   mouseover: boolean;
 
@@ -30,7 +33,7 @@ export class CoverComponent {
     this.mouseover = true;
   }
 
-  constructor(private _mpd: MpdService) {
+  constructor(private _mpd: MpdService, private _router: Router) {
   }
 
   playAlbum() {
@@ -39,5 +42,12 @@ export class CoverComponent {
 
   queueAlbum() {
     this._mpd.sendCommand('addArtistAlbum', ['enqueue', this.song.album_artist, this.song.album]);
+  }
+
+  toggleShowSongs() {
+    this.showSongs.emit(this.song);
+    if (!this.inLibraryView) {
+      this._router.navigateByUrl('/library/' + this.song.album_artist + '/' + this.song.album);
+    }
   }
 }

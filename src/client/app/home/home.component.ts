@@ -5,6 +5,7 @@ import { Song } from '../shared/models/song.model';
 
 import { CurrentSongService } from '../shared/state/current-song.service';
 import { MpdService } from '../shared/websocket/mpd.service';
+import { LibraryService } from '../shared/library/library.service';
 /**
  * This class represents the lazy loaded HomeComponent.
  */
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   albumSongs: Song[];
 
-  constructor(private _currentSong: CurrentSongService, private _mpd: MpdService) {}
+  constructor(private _currentSong: CurrentSongService, private _mpd: MpdService, private _library: LibraryService) {}
 
   ngOnInit() {
     this.song = this._currentSong.getCurrentSong();
