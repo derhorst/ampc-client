@@ -62,15 +62,16 @@ export class LibraryComponent implements OnInit, OnDestroy {
       }
     ));
 
-    this.subscriptions.push(this._library.getAlbumArtists().subscribe(data => {
-      this.library = data;
-      this.artists = Object.keys(this.library);
-      this._cd.markForCheck();
-    }));
-
-    this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+    this.subscriptions.push(this._library.getpreViewAlbumArtSongs().subscribe(data => {
       this.albumArtSongs = data;
       this._cd.markForCheck();
+      setTimeout(() => {
+        this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+          this.albumArtSongs = data;
+          this._cd.markForCheck();
+        }));
+      }, 50);
+
     }));
   }
 
@@ -100,7 +101,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('DESTROY LIB');
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

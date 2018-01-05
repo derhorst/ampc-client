@@ -6,5 +6,5 @@
     <div inlineSVG="assets/svg/list-add.svg" (click)="queueAlbum()"></div>
   </div>
   <!-- routerLink="/library/{{song.album_artist}}/{{song.album}}" -->
-  <a (click)="toggleShowSongs()"><img [ngClass]="{'low-contrast':contrast === 'low', 'high-contrast':contrast === 'high'}" [src]="song?.file | getCoverUrl" onError="this.src='assets/placeholder.jpg';"></a>
+  <a (click)="toggleShowSongs()"><img [ngClass]="{'low-contrast':contrast === 'low', 'high-contrast':contrast === 'high'}" [src]="song?.file | getCoverUrl" onError="this.src='assets/jpg/placeholder.jpg';"></a>
 </div>

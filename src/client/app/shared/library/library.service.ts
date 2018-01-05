@@ -7,8 +7,10 @@ import { Song } from '../models/song.model';
 export class LibraryService {
   library: {[album_artist: string]: {[album: string]: ReplaySubject<Song[]>}};
   albumArtSongs: Song[] = [];
+  preViewAlbumArtSongs: Song[] = [];
   private libraryObservable: ReplaySubject<any> = new ReplaySubject(1);
   private albumArtSongsObservable: ReplaySubject<any> = new ReplaySubject(1);
+  private preViewAlbumArtSongsObservable: ReplaySubject<any> = new ReplaySubject(1);
 
   // constructor() { }
   setAlbumArtists(albumArtists: any) {
@@ -48,12 +50,16 @@ export class LibraryService {
           song.album = songs[i].album;
           song.file = songs[i].file;
           this.albumArtSongs.push(song);
+          if (this.albumArtSongs.length < 200) {
+            this.preViewAlbumArtSongs.push(song);
+          }
         }
         // add song
         album.push(songs[i]);
       }
     }
     this.albumArtSongsObservable.next(this.albumArtSongs);
+    this.preViewAlbumArtSongsObservable.next(this.preViewAlbumArtSongs);
   }
 
   getAlbumsOfArtist(albumArtist: string) {
@@ -95,6 +101,10 @@ export class LibraryService {
 
   getAlbumArtSongs() {
     return this.albumArtSongsObservable;
+  }
+
+  getpreViewAlbumArtSongs() {
+    return this.preViewAlbumArtSongsObservable;
   }
 
   getAlbumArtists() {
