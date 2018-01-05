@@ -6,6 +6,7 @@ import { StateService } from '../state/state.service';
 import { QueueService } from '../state/queue.service';
 import { CurrentSongService } from '../state/current-song.service';
 import { LibraryService } from '../library/library.service';
+import { PlaylistsService } from '../library/playlists.service';
 
 import { Config } from './../../shared/config/env.config';
 
@@ -21,7 +22,7 @@ export class MpdService {
    * Constructor of the logging service
    */
   constructor(private _websocket: WebsocketService, private _state: StateService, private _currentSong: CurrentSongService,
-    private _queue: QueueService, private _library: LibraryService) {
+    private _queue: QueueService, private _library: LibraryService, private _playlists: PlaylistsService) {
     this.listen();
   }
 
@@ -89,6 +90,12 @@ export class MpdService {
               case 'all_meta':
                 this._library.setAlbumsOfAlbumArtist(wsData.data, false);
                 break;
+              case 'playlists':
+                this._playlists.setPlaylists(wsData.data);
+                break;
+              case 'playlist':
+                this._playlists.setPlaylist(wsData.name, wsData.data);
+                break;
               default:
             }
             // console.log('WS:', wsData);
@@ -127,6 +134,8 @@ export class MpdService {
     | 'updateQueue'
     | 'sendListAllMeta'
     | 'getBrowse'
+    | 'listPlaylists'
+    | 'listPlaylistMeta'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -182,8 +191,14 @@ export class MpdService {
         case 'sendListAllMeta':
           this.ws.next('MPD_API_SEND_LIST_ALL_META');
           break;
+        case 'listPlaylists':
+          this.ws.next('MPD_SEND_LIST_PLAYLISTS');
+          break;
         case 'getBrowse':
           this.ws.next('MPD_API_GET_BROWSE,' + args[0] + ',' + args[1]);
+          break;
+        case 'listPlaylistMeta':
+          this.ws.next('MPD_SEND_LIST_PLAYLIST_META,' + args[0]);
           break;
         default:
           console.log('command not found:', command);
