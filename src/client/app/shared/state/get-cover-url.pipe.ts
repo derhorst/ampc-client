@@ -13,9 +13,9 @@ export class GetCoverUrlPipe implements PipeTransform {
   transform(filename: string) {
     if (filename) {
       if (Config.ENV === 'DEV') {
-        return this._sanitizer.bypassSecurityTrustUrl(encodeURI('http://localhost:8080/cover/' + filename ));
+        return encodeURI('http://localhost:8080/cover/' + filename).replace('#', '%23');
       } else {
-        return this._sanitizer.bypassSecurityTrustUrl(encodeURI('./cover/' + filename ));
+        return encodeURI('./cover/' + filename).replace('#', '%23');
       }
     } else {
       return '';
