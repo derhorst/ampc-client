@@ -90,7 +90,7 @@ h2 {
 }
 
 .library-wrapper {
-  overflow: hidden;
+  overflow-y: scroll;
   position: relative;
   padding-bottom: 3em;
   height: 100%;
@@ -165,4 +165,30 @@ h2 {
 
 .albums {
   padding-left: 0.95em;
+}
+
+.album-grouping {
+  overflow: hidden;
+}
+
+@media (max-width: 80em) {
+  .queue-wrapper, .cover, .song-info {
+    display: none;
+  }
+
+  .library {
+    grid-column: auto / span 2;
+  }
+
+  .box {
+    padding: 0.5em;
+  }
+
+  h1 {
+    font-size: 1.1em !important;
+  }
+
+  h2 {
+    font-size: 1em !important;
+  }
 }

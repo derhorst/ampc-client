@@ -13,7 +13,6 @@ import { QueueService } from './state/queue.service';
 import { LibraryService } from './library/library.service';
 import { PlaylistsService } from './library/playlists.service';
 
-import { NavbarComponent } from './navbar/navbar.component';
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { ControlsBarComponent } from './controls-bar/controls-bar.component';
@@ -31,9 +30,9 @@ import { TrackNumberPipe } from './queue/track-number.pipe';
 
 @NgModule({
   imports: [CommonModule, RouterModule, InlineSVGModule],
-  declarations: [NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe,
+  declarations: [QueueComponent, YearPipe, FormatDurationPipe,
      GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent, TrackNumberPipe],
-  exports: [NavbarComponent, QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
+  exports: [QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
     CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent,
      TrackNumberPipe]
 })

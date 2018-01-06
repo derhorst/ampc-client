@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem('libraryView', 'albums');
     this._currentSong.getCurrentSong().subscribe(
         (song: Song) => {
           // if (localStorage.getItem('libraryView') !== 'albums') {

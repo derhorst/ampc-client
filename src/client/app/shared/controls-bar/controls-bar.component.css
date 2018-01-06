@@ -139,3 +139,26 @@
   margin-top: 1em;
   width: 3.5em;
 }
+
+@media (max-width: 35em) {
+  .controls-right {
+    display: none;
+  }
+
+  .controls-left {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: inline-flex;
+    background-color: black;
+    opacity: 1;
+    height: 4em;
+  }
+
+  .controls-left > .btn {
+    height: 2.5em;
+    width: 2.5em;
+    padding: 0.3em;
+    margin-right: 0.5em;
+  }
+}

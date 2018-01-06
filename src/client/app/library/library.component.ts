@@ -25,7 +25,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   currentSong: Song;
   showControls = true;
   library: {[key: string]: Song[]};
-  albumArtSongs: Song[];
+  albumArtSongs: {[album_artist: string]: Song[]};
   open: {[key: string]: boolean} = {};
   libraryView: string = localStorage.getItem('libraryView');
   filter = '';
@@ -64,15 +64,28 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this._library.getpreViewAlbumArtSongs().subscribe(data => {
       this.albumArtSongs = data;
+      this.artists = Object.keys(this.albumArtSongs);
       this._cd.markForCheck();
       setTimeout(() => {
         this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
           this.albumArtSongs = data;
+          this.artists = Object.keys(this.albumArtSongs);
           this._cd.markForCheck();
         }));
       }, 50);
 
     }));
+  }
+
+  getSongs() {
+    if (this.artists) {
+      let songs: Song[] = [];
+      for (let i = 0; i < this.artists.length; i++) {
+          songs = songs.concat(this.albumArtSongs[this.artists[i]]);
+      }
+      return songs;
+    }
+    return [];
   }
 
   getArtists() {
@@ -84,7 +97,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   getArtistAlbums(albumArtist: string) {
-    if (!this.library[albumArtist]) {
+    if (this.library && !this.library[albumArtist]) {
       this._mpd.sendCommand('getArtistAlbums', [albumArtist]);
     }
   }

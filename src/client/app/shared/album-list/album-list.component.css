@@ -66,7 +66,7 @@
 
 .album-list-wrapper {
   height: 100%;
-  overflow: hidden;
+  /*overflow-y: scroll;*/
   padding-bottom: 1em;
 }
 

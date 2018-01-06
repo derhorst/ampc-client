@@ -6,10 +6,10 @@ import { Song } from '../models/song.model';
 @Injectable()
 export class LibraryService {
   library: {[album_artist: string]: {[album: string]: ReplaySubject<Song[]>}};
-  albumArtSongs: Song[] = [];
+  albumArtSongs: {[album_artist: string]: Song[]} = {};
   preViewAlbumArtSongs: Song[] = [];
   private libraryObservable: ReplaySubject<any> = new ReplaySubject(1);
-  private albumArtSongsObservable: ReplaySubject<any> = new ReplaySubject(1);
+  private albumArtSongsObservable: ReplaySubject<{[album_artist: string]: Song[]}> = new ReplaySubject(1);
   private preViewAlbumArtSongsObservable: ReplaySubject<any> = new ReplaySubject(1);
 
   // constructor() { }
@@ -49,8 +49,12 @@ export class LibraryService {
           song.album_artist = songs[i].album_artist;
           song.album = songs[i].album;
           song.file = songs[i].file;
-          this.albumArtSongs.push(song);
-          if (this.albumArtSongs.length < 200) {
+
+          if (!this.albumArtSongs[song.album_artist]) {
+            this.albumArtSongs[song.album_artist] = [];
+          }
+          this.albumArtSongs[song.album_artist].push(song);
+          if (Object.keys(this.albumArtSongs).length < 100) {
             this.preViewAlbumArtSongs.push(song);
           }
         }

@@ -27,8 +27,10 @@
     </div>
   </div>
   <div class="cards" *ngIf="inLibraryView">
-    <div class="cards-item" [ngClass]="{'cards-fixed': libraryView !== 'albums'}" *ngFor="let song of songs">
-      <sd-cover [inLibraryView]="inLibraryView" [contrast]="contrast" [song]="song" (showSongs)="albumOpen($event)"></sd-cover>
+    <div *ngFor="let song of songs; let i = index">
+      <div class="cards-item" [ngClass]="{'cards-fixed': libraryView !== 'artists'}" *ngIf="!albumViewOpen || albumViewOpen.album !== song.album">
+        <sd-cover [inLibraryView]="inLibraryView" [contrast]="contrast" [song]="song" (showSongs)="albumOpen($event)"></sd-cover>
+      </div>
     </div>
   </div>
 </div>

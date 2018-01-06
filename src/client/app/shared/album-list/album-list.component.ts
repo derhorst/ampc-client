@@ -22,6 +22,7 @@ export class AlbumListComponent {
   @Input() songs: Song[];
   @Input() currentSong: Song;
   @Input() inLibraryView: boolean;
+  @Input() libraryGrouping: string;
   @Input()
   set showAlbum(song: Song) {
     if (song && song.album_artist && song.album) {
@@ -32,7 +33,7 @@ export class AlbumListComponent {
   libraryView: string = localStorage.getItem('libraryView');
   contrast = 'normal';
   open = 0;
-  albumViewOpen = false;
+  albumViewOpen: Song;
   album: Song[];
   albumDuration = 0;
   selected: {track: string, file: string} = {track: null, file: null};
@@ -41,6 +42,7 @@ export class AlbumListComponent {
   constructor(private _library: LibraryService, private _mpd: MpdService, private _location: Location) {}
 
   albumOpen(song: Song) {
+    this.albumViewOpen = song;
     this.getAlbum(song);
   }
 
@@ -51,7 +53,7 @@ export class AlbumListComponent {
       for (let i = 0; i < songs.length; i++) {
           this.albumDuration += songs[i].duration;
       }
-      this.albumViewOpen = true;
+      this.albumViewOpen = songs[0];
     }));
   }
 
@@ -70,7 +72,7 @@ export class AlbumListComponent {
   }
 
   closeAlbumView() {
-    this.albumViewOpen = false;
+    this.albumViewOpen = null;
     this._location.replaceState('library');
   }
 }
