@@ -80,7 +80,7 @@
   flex-wrap: wrap;
   padding-right: 1em;
   -webkit-align-content: flex-start;
-  align-content:         flex-start;
+  align-content: flex-start;
 }
 
 .cards-item {

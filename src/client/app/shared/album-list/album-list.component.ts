@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Config } from './../../shared/config/env.config';
@@ -38,7 +38,7 @@ export class AlbumListComponent {
   selected: {track: string, file: string} = {track: null, file: null};
   subscriptions: any[] = [];
 
-  constructor(private _library: LibraryService, private _mpd: MpdService) {}
+  constructor(private _library: LibraryService, private _mpd: MpdService, private _location: Location) {}
 
   albumOpen(song: Song) {
     this.getAlbum(song);
@@ -67,5 +67,10 @@ export class AlbumListComponent {
       this.selected.track = song.track;
       this.selected.file = song.file;
     }
+  }
+
+  closeAlbumView() {
+    this.albumViewOpen = false;
+    this._location.replaceState('library');
   }
 }

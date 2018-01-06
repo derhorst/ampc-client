@@ -1,13 +1,32 @@
-<div class="wrapper">
-  <h2>todo: playlists</h2>
-  <ul>
-    <li *ngFor="let playlist of playlists">
-      <span (click)="togglePlaylist(playlist)">{{ playlist }}</span>
-      <ul *ngIf="playlistSongs[playlist] && open[playlist]">
-        <li *ngFor="let song of playlistSongs[playlist]">
-          {{ song.title }}
-        </li>
-      </ul>
-    </li>
-  </ul>
+<div class="wrapper" [ngClass]="{'controls-visible': showControls}">
+  <div class="box cover">
+    <sd-cover [song]="currentSong"></sd-cover>
+  </div>
+  <div class="box song-info">
+    <h1>{{ currentSong?.title }}</h1>
+    <h2>{{ currentSong?.artist }}</h2>
+    <h2>{{ currentSong?.album }} {{ currentSong?.date | year }}</h2>
+  </div>
+  <div class="playlists-wrapper">
+    <div class="playlists">
+      <h2>playlists</h2>
+      <div>
+        <div class="playlist" *ngFor="let playlist of playlists">
+          <span (click)="togglePlaylist(playlist)">{{ playlist }}</span>
+          <div *ngIf="playlistSongs[playlist] && open[playlist]">
+            <div *ngFor="let song of playlistSongs[playlist]">
+              <div class="song-row" [ngClass]="{'selected': song.track === selected?.track &&
+               song.file === selected?.file}"  (dblclick)="playTrack(song)" (click)="selectTrack(song)">
+                {{ song.track | trackNumber }} &nbsp; {{ song.title }}
+                <span class="song-duration">{{ song.duration | formatDuration }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box queue-wrapper">
+    <sd-queue class="queue"></sd-queue>
+  </div>
 </div>

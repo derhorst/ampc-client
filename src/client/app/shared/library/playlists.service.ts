@@ -19,7 +19,6 @@ export class PlaylistsService {
   }
 
   setPlaylist(name: string, playlist: Song[]) {
-    console.log(name, playlist);
     this.playlists[name] = playlist;
     this.playlistsObservable.next(this.playlists);
   }

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 import { Config } from './../../shared/config/env.config';
@@ -33,7 +34,7 @@ export class CoverComponent {
     this.mouseover = true;
   }
 
-  constructor(private _mpd: MpdService, private _router: Router) {
+  constructor(private _mpd: MpdService, private _router: Router, private _location: Location) {
   }
 
   playAlbum() {
@@ -48,6 +49,8 @@ export class CoverComponent {
     this.showSongs.emit(this.song);
     if (!this.inLibraryView) {
       this._router.navigateByUrl('/library/' + this.song.album_artist + '/' + this.song.album);
+    } else {
+      this._location.replaceState('library/' + this.song.album_artist + '/' + this.song.album);
     }
   }
 }

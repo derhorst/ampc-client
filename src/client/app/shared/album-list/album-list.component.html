@@ -2,7 +2,7 @@
 
 <div class="album-list-wrapper" *ngIf="inLibraryView || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
   <div *ngIf="albumViewOpen" class="album-view">
-    <div class="back" (click)="albumViewOpen = false"><h2>‹ Back</h2></div>
+    <div class="back" (click)="closeAlbumView()"><h2>‹ Back</h2></div>
     <div class="album-info">
       <div class="album-view-img">
         <sd-cover [inLibraryView]="inLibraryView" *ngIf="album" [contrast]="contrast" [song]="album[0]" (showSongs)="albumOpen($event)"></sd-cover>
