@@ -11,49 +11,41 @@ import { Song } from '../models/song.model';
 
 
 /**
- * This class represents the navigation bar component.
+ * This class represents the state controls bar component.
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-controls-bar',
-  templateUrl: 'controls-bar.component.html',
-  styleUrls: ['controls-bar.component.css'],
+  selector: 'sd-state-controls',
+  templateUrl: 'state-controls.component.html',
+  styleUrls: ['state-controls.component.css'],
 })
 
-export class ControlsBarComponent {
-  @Input() showControls = true;
-  @Input() currentSong: Song;
+export class StateControlsComponent {
   @Input() state: State;
-  @Input() volume = 0;
-  @Input() mute = false;
-  // state: State;
-  @Input() playing = false;
-  private eventOptions: boolean|{capture?: boolean, passive?: boolean};
+  @Input() volume: number;
 
-  constructor(private ele: ElementRef, private _mpd: MpdService) {}
-
-  playPause() {
-    this._mpd.sendCommand('playPause');
-    this.playing = !this.playing;
+  @HostListener('mousewheel', ['$event'])
+  scroll($event: any) {
+      if ($event.deltaY < 0) {
+        /* volume up */
+        if (this.volume + 5 > 100) {
+          this.volume = 100;
+        } else {
+          this.volume += 5;
+        }
+        this._mpd.sendCommand('setVolume', [this.volume]);
+      } else {
+        /* volume down */
+        if (this.volume - 5 < 0) {
+          this.volume = 0;
+        } else {
+          this.volume -= 5;
+        }
+        this._mpd.sendCommand('setVolume', [this.volume]);
+      }
   }
 
-  nextSong() {
-    this._mpd.sendCommand('nextSong');
-  }
-
-  prevSong() {
-    this._mpd.sendCommand('prevSong');
-  }
-
-  toggleMute() {
-    if (!this.mute) {
-      this._mpd.sendCommand('setVolume', [0]);
-      this.mute = true;
-    } else {
-      this._mpd.sendCommand('setVolume', [this.volume]);
-      this.mute = false;
-    }
-  }
+  constructor(private _mpd: MpdService) {}
 
   toggleConsume() {
     if (this.state.consume === 1) {
@@ -93,5 +85,14 @@ export class ControlsBarComponent {
       this.state.repeat = 1;
       this._mpd.sendCommand('toggleRepeat', [1]);
     }
+  }
+
+  setVolume($event: MouseEvent) {
+    if ($event.offsetX + 5 > 100) {
+      this.volume = 100;
+    } else {
+      this.volume = $event.offsetX + 5;
+    }
+    this._mpd.sendCommand('setVolume', [this.volume]);
   }
 }

@@ -16,6 +16,9 @@ import { PlaylistsService } from './library/playlists.service';
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { ControlsBarComponent } from './controls-bar/controls-bar.component';
+import { ViewControlsComponent } from './view-controls/view-controls.component';
+import { StateControlsComponent } from './state-controls/state-controls.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { CoverComponent } from './cover/cover.component';
 
 import { YearPipe } from './state/year.pipe';
@@ -31,9 +34,10 @@ import { TrackNumberPipe } from './queue/track-number.pipe';
 @NgModule({
   imports: [CommonModule, RouterModule, InlineSVGModule],
   declarations: [QueueComponent, YearPipe, FormatDurationPipe,
-     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent, TrackNumberPipe],
-  exports: [QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe,
-    CommonModule, FormsModule, RouterModule, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, CoverComponent,
+     GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, ViewControlsComponent, StateControlsComponent,
+     ProgressBarComponent, CoverComponent, TrackNumberPipe],
+  exports: [QueueComponent, YearPipe, FormatDurationPipe, GetCoverUrlPipe, CommonModule, FormsModule, RouterModule, AlbumListComponent,
+     DuplicateAlbumFilterPipe, ControlsBarComponent, ViewControlsComponent, StateControlsComponent, ProgressBarComponent, CoverComponent,
      TrackNumberPipe]
 })
 export class SharedModule {

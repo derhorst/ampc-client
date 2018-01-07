@@ -1,31 +1,18 @@
-<div class="wrapper" [ngClass]="{'controls-visible': showControls}">
-  <div class="box cover">
-    <sd-cover [song]="currentSong"></sd-cover>
+<div class="library">
+  <div class="library-caption">
+    <h2>Library</h2>
+      <input type="text" name="lname" placeholder="Filter" [(ngModel)]="filter">
+      <h2 class="clear-filter" (click)="filter = ''">X</h2>
   </div>
-  <div class="box song-info">
-    <h1>{{ currentSong?.title }}</h1>
-    <h2>{{ currentSong?.artist }}</h2>
-    <h2>{{ currentSong?.album }} {{ currentSong?.date | year }}</h2>
-  </div>
-  <div class="library">
-    <div class="library-caption">
-      <h2>Library</h2>
-        <input type="text" name="lname" placeholder="Filter" [(ngModel)]="filter">
-        <h2 class="clear-filter" (click)="filter = ''">X</h2>
+  <div class="library-wrapper" [ngClass]="{'album-grouping': libraryView === 'albums'}">
+    <div *ngFor="let artist of artists  | artistViewFilter : albumArtSongs : filter">
+      <span *ngIf="libraryView !== 'albums'" class="album-artist-label" (click)="toggleAlbumView(artist)">
+        <span *ngIf="!open[artist]">› </span>
+        <span class="caret-down" *ngIf="open[artist]">› </span>
+        {{ artist }}
+      </span>
+      <sd-album-list *ngIf="libraryView !== 'albums' && open[artist]" [songs]="albumArtSongs[artist]" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
     </div>
-    <div class="library-wrapper" [ngClass]="{'album-grouping': libraryView === 'albums'}">
-      <div *ngFor="let artist of artists  | artistViewFilter : albumArtSongs : filter">
-        <span *ngIf="libraryView !== 'albums'" class="album-artist-label" (click)="toggleAlbumView(artist)">
-          <span *ngIf="!open[artist]">› </span>
-          <span class="caret-down" *ngIf="open[artist]">› </span>
-          {{ artist }}
-        </span>
-        <sd-album-list *ngIf="libraryView !== 'albums' && open[artist]" [songs]="albumArtSongs[artist]" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
-      </div>
-        <sd-album-list *ngIf="libraryView === 'albums'" [songs]="getSongs(albumArtSongs) | albumViewFilter : filter" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
-    </div>
-  </div>
-  <div class="box queue-wrapper">
-    <sd-queue class="queue"></sd-queue>
+      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="getSongs(albumArtSongs) | albumViewFilter : filter" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
   </div>
 </div>

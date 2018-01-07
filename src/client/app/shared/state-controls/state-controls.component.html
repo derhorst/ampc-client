@@ -1,0 +1,16 @@
+<div class="controls-right box">
+  <div class="btn btn-small" [ngClass]="{'selected': state?.repeat === 1}" inlineSVG="assets/svg/repeat.svg"
+    (click)="toggleRepeat()"></div>
+  <div class="btn btn-small" [ngClass]="{'selected': state?.single === 1}" inlineSVG="assets/svg/single.svg"
+    (click)="toggleSingle()"></div>
+  <div class="btn btn-small" [ngClass]="{'selected': state?.random === 1}" inlineSVG="assets/svg/shuffle.svg"
+    (click)="toggleRandom()"></div>
+  <div class="btn btn-small consume" [ngClass]="{'selected': state?.consume === 1}" inlineSVG="assets/svg/consume.svg"
+   (click)="toggleConsume()"></div>
+  <div class="volume">
+    <div class="volume-container" (click)="setVolume($event)">
+      <div class="volume-bar" [style.width]="volume+'%'"></div>
+    </div>
+    <span class="volume-label" (click)="toggleMute()"><span *ngIf="mute">-- %</span><span *ngIf="!mute">{{ volume }} %</span></span>
+  </div>
+</div>

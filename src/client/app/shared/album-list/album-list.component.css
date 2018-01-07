@@ -83,6 +83,10 @@
   align-content: flex-start;
 }
 
+.cards > div {
+  flex-basis: 12em;
+}
+
 .cards-item {
   margin: 1rem;
   flex-basis: 12em;

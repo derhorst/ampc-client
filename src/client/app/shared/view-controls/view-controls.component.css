@@ -1,0 +1,23 @@
+.btn {
+  margin-top: 0.5em;
+  width: 2em;
+  height: 2em;
+  fill: white;
+  fill-opacity: 0.4;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-small {
+  padding: 0.2em;
+}
+
+.btn-smaller {
+  padding: 0.3em;
+}
+
+.selected {
+  fill-opacity: 0.9;
+}

@@ -1,0 +1,85 @@
+:host {
+  width: 100%;
+}
+
+.btn {
+  margin-top: 0.5em;
+  width: 2em;
+  height: 2em;
+  fill: white;
+  fill-opacity: 0.4;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-small.consume {
+  padding: 0.4em;
+}
+
+.btn-small {
+  padding: 0.2em;
+}
+
+.btn-smaller {
+  padding: 0.3em;
+}
+
+.selected.consume {
+  fill: yellow;
+  fill-opacity: 0.6;
+}
+
+.selected.consume:hover {
+  fill: yellow !important;
+}
+
+.selected {
+  fill-opacity: 0.9;
+}
+.controls-right {
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.volume {
+  display: inherit;
+}
+
+.volume {
+  display: inherit;
+}
+
+.volume-container {
+  height: 1em;
+  width: 6em;
+  margin-top: 1em;
+  margin-right: 0.5em;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /*border-bottom: 1px solid #cecece;*/
+  z-index: 1;
+}
+
+.volume:hover > div > .volume-bar, .volume:hover > .volume-label {
+  color: rgba(255, 255, 255, 1);
+  opacity: 1;
+}
+
+.volume-bar {
+  height: 1em;
+  position: relative;
+  margin: 0 !important;
+  z-index: 2;
+  background-color: white;
+  opacity: 0.2;
+}
+
+.volume-label {
+  color: rgba(255, 255, 255, 0.4);
+  /*margin-left: 2em;*/
+  margin-top: 1em;
+  width: 3.5em;
+}

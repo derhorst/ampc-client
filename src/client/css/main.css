@@ -13,6 +13,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 /* Box-sizing border-box */
@@ -27,6 +28,142 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.content.controls-visible {
+  grid-template-rows: 1fr 2fr 4em;
+}
+
+.main-content {
+  grid-row: auto / span 2;
+  padding-left: 0.5em;
+  overflow: hidden;
+}
+
+.current {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 12px;
+  /*background-color: red;*/
+}
+
+.current > .cover {
+  padding: 2em;
+}
+
+.queue {
+  padding-left: 2em;
+}
+
+.queue-content {
+  overflow: hidden;
+  padding-right: 0.5em;
+  /*background-color: yellow;*/
+}
+
+.ctrl {
+  height: 4em;
+  width: 100%;
+  display: grid;
+  grid-column: auto / span 2;
+  /*background-color: blue;*/
+  grid-template-columns: 1fr 9em 1fr;
+  grid-template-row: 1fr 3fr;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.progress {
+  grid-column: auto / span 3;
+}
+
+.ctrl-top {
+  height: 4em;
+  width: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.controls-left > div:hover, .controls-center > div:hover, .controls-right > div:hover {
+  cursor: pointer;
+  fill: white;
+  fill-opacity: 1;
+}
+
+.view-controls-top > .controls-left {
+  justify-content: space-around !important;
+}
+
+.controls-left {
+  display: inline-flex;
+  justify-content: flex-start;
+  margin-left: 1em;
+  width: 100%;
+}
+
+.controls-right {
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.view-controls, .state-controls, .play-controls {
+  display: inline-flex;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.view-controls {
+  /*background-color: red;*/
+}
+
+.state-controls {
+  /*background-color: blue;*/
+}
+
+.play-controls {
+  /*background-color: green;*/
+}
+
+
+.queue-view {
+  height: 100%;
+  width: 100%;
+  position: inherit;
+  overflow: hidden;
+}
+
+
+h1 {
+  color: #fff;
+  font-size: 2.5em;
+  max-height: 2.2em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  /*white-space: nowrap;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 h2 {
@@ -77,4 +214,39 @@ button {
 
 button:hover {
   background-color: #28739e;
+}
+
+
+@media (max-width: 60em) {
+  .content.controls-visible {
+    grid-template-columns: 1fr;
+    grid-template-rows: 4em 1fr 4em;
+    overflow: hidden;
+  }
+
+  .current, .queue-content, .view-controls-bottom, .state-controls-bottom {
+    display: none;
+  }
+
+  .ctrl {
+    grid-column: auto;
+    /*background-color: green;*/
+  }
+
+  .ctrl-top {
+    display: grid;
+    /*background-color: blue;*/
+  }
+
+  .box {
+    padding: 0.5em;
+  }
+
+  h1 {
+    font-size: 1.1em !important;
+  }
+
+  h2 {
+    font-size: 1em !important;
+  }
 }

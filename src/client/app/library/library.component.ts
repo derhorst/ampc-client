@@ -52,29 +52,26 @@ export class LibraryComponent implements OnInit, OnDestroy {
       }
     }));
 
-    this.subscriptions.push(this._currentSong.getCurrentSong().subscribe(
-      (song: Song) => {
-        this.currentSong = song;
+    if (this.libraryView === 'albums') {
+      this.subscriptions.push(this._library.getpreViewAlbumArtSongs().subscribe(data => {
+        this.albumArtSongs = data;
+        this.artists = Object.keys(this.albumArtSongs);
         this._cd.markForCheck();
-      },
-      err => {
-        console.log(err);
-      }
-    ));
-
-    this.subscriptions.push(this._library.getpreViewAlbumArtSongs().subscribe(data => {
-      this.albumArtSongs = data;
-      this.artists = Object.keys(this.albumArtSongs);
-      this._cd.markForCheck();
-      setTimeout(() => {
-        this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
-          this.albumArtSongs = data;
-          this.artists = Object.keys(this.albumArtSongs);
-          this._cd.markForCheck();
-        }));
-      }, 50);
-
-    }));
+        setTimeout(() => {
+          this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+            this.albumArtSongs = data;
+            this.artists = Object.keys(this.albumArtSongs);
+            this._cd.markForCheck();
+          }));
+        }, 50);
+      }));
+    } else {
+      this.subscriptions.push(this._library.getAlbumArtSongs().subscribe(data => {
+        this.albumArtSongs = data;
+        this.artists = Object.keys(this.albumArtSongs);
+        this._cd.markForCheck();
+      }));
+    }
   }
 
   getSongs() {

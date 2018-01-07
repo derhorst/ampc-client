@@ -1,5 +1,38 @@
-<router-outlet></router-outlet>
-<sd-controls-bar [currentSong]="currentSong"></sd-controls-bar>
+<div class="content" [ngClass]="{'controls-visible': showControls}">
+    <div class="ctrl-top">
+      <sd-view-controls class="view-controls-top"></sd-view-controls>
+    </div>
+    <div class="current">
+      <div class="box cover">
+        <sd-cover [song]="currentSong"></sd-cover>
+      </div>
+      <div class="box song-info">
+        <h1>{{ currentSong?.title }}</h1>
+        <h2>{{ currentSong?.artist }}</h2>
+        <h2>{{ currentSong?.album }} {{ currentSong?.date | year }}</h2>
+      </div>
+    </div>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="box queue-content">
+      <sd-queue class="queue"></sd-queue>
+    </div>
+  <div class="ctrl">
+    <sd-progress-bar class="progress" [percent]="percent" [currentSong]="currentSong"></sd-progress-bar>
+    <div class="view-controls">
+      <sd-view-controls class="view-controls-bottom"></sd-view-controls>
+    </div>
+    <div class="play-controls">
+      <sd-controls-bar [currentSong]="currentSong" [state]="state" [volume]="volume" [mute]="mute" [playing]="playing">
+    </sd-controls-bar>
+    </div>
+    <div class="state-controls">
+      <sd-state-controls class="state-controls-bottom" [state]="state" [volume]="volume"></sd-state-controls>
+    </div>
+  </div>
+</div>
+
 <div class="background">
   <img class="background-image" [src]="currentSong?.file | getCoverUrl" onError="this.src='assets/jpg/placeholder.jpg';">
 </div>

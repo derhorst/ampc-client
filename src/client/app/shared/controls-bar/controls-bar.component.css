@@ -1,32 +1,4 @@
-.progress-container {
-  height: 0.5em;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  /*border-bottom: 1px solid #cecece;*/
-  z-index: 1;
-}
-
-.progress-bar {
-  bottom: 0;
-  position: fixed !important;
-  margin: 0 !important;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.2);
-  /*background-color: rgba(61, 174, 233, 1);*/
-  opacity: 1;
-  height: 0.5em;
-}
-
-.progress-container:hover > .progress-bar {
-  background: rgba(255, 255, 255, 1);
-}
-
 .control-bar {
-  bottom: 0.5em;
-  position: fixed !important;
-  margin: 0 !important;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.6);
   display: grid;
@@ -62,12 +34,6 @@
   outline: none;
 }
 
-.controls-left > div:hover, .controls-center > div:hover, .controls-right > div:hover {
-  cursor: pointer;
-  fill: white;
-  fill-opacity: 1;
-}
-
 .btn-small.consume {
   padding: 0.4em;
 }
@@ -91,74 +57,4 @@
 
 .selected {
   fill-opacity: 0.9;
-}
-
-.controls-left {
-  display: inline-flex;
-  justify-content: flex-start;
-  margin-left: 1em;
-}
-
-.controls-right {
-  display: inline-flex;
-  justify-content: flex-end;
-}
-
-.volume {
-  display: inherit;
-}
-
-.volume-container {
-  height: 1em;
-  width: 6em;
-  margin-top: 1em;
-  margin-right: 0.5em;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  /*border-bottom: 1px solid #cecece;*/
-  z-index: 1;
-}
-
-.volume:hover > div > .volume-bar, .volume:hover > .volume-label {
-  color: rgba(255, 255, 255, 1);
-  opacity: 1;
-}
-
-.volume-bar {
-  height: 1em;
-  position: relative;
-  margin: 0 !important;
-  z-index: 2;
-  background-color: white;
-  opacity: 0.2;
-}
-
-.volume-label {
-  color: rgba(255, 255, 255, 0.4);
-  /*margin-left: 2em;*/
-  margin-top: 1em;
-  width: 3.5em;
-}
-
-@media (max-width: 35em) {
-  .controls-right {
-    display: none;
-  }
-
-  .controls-left {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: inline-flex;
-    background-color: black;
-    opacity: 1;
-    height: 4em;
-  }
-
-  .controls-left > .btn {
-    height: 2.5em;
-    width: 2.5em;
-    padding: 0.3em;
-    margin-right: 0.5em;
-  }
 }

@@ -21,16 +21,16 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!inLibraryView" class="cards">
-    <div class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
-      <sd-cover [inLibraryView]="inLibraryView" [song]="song" [contrast]="'low'"></sd-cover>
-    </div>
-  </div>
   <div class="cards" *ngIf="inLibraryView">
     <div *ngFor="let song of songs; let i = index">
       <div class="cards-item" [ngClass]="{'cards-fixed': libraryView !== 'artists'}" *ngIf="!albumViewOpen || albumViewOpen.album !== song.album">
         <sd-cover [inLibraryView]="inLibraryView" [contrast]="contrast" [song]="song" (showSongs)="albumOpen($event)"></sd-cover>
       </div>
+    </div>
+  </div>
+  <div *ngIf="!inLibraryView" class="cards">
+    <div class="cards-item" *ngFor="let song of songs | filterDuplicate : currentSong.album : true">
+      <sd-cover [inLibraryView]="inLibraryView" [song]="song" [contrast]="'low'"></sd-cover>
     </div>
   </div>
 </div>
