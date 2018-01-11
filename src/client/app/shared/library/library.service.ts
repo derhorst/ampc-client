@@ -54,7 +54,7 @@ export class LibraryService {
             this.albumArtSongs[song.album_artist] = [];
           }
           this.albumArtSongs[song.album_artist].push(song);
-          if (Object.keys(this.albumArtSongs).length < 100) {
+          if (Object.keys(this.albumArtSongs).length < 50) {
             this.preViewAlbumArtSongs.push(song);
           }
         }

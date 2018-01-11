@@ -23,6 +23,7 @@ export class AlbumListComponent {
   @Input() currentSong: Song;
   @Input() inLibraryView: boolean;
   @Input() libraryGrouping: string;
+  @Input() caption: string;
   @Input()
   set showAlbum(song: Song) {
     if (song && song.album_artist && song.album) {

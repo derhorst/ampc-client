@@ -1,5 +1,6 @@
-<div class="box album-list">
-  <sd-album-list [songs]="albumSongs" [currentSong]="currentSong" [inLibraryView]="false"></sd-album-list>
+<div class="box album-list-container">
+  <sd-album-list *ngIf="albumSongs" [songs]="albumSongs" [currentSong]="currentSong" [inLibraryView]="false" [caption]="albumSongs[0].album_artist + ' &#8250; Albums'"></sd-album-list>
+  <sd-album-list *ngIf="showRandomAlbums > 0" [songs]="randomAlbums" [currentSong]="currentSong" [inLibraryView]="false" [caption]="'Random Albums'"></sd-album-list>
 </div>
 <div class="mobile">
   <div class="mobile-current">

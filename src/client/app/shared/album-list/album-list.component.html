@@ -1,6 +1,6 @@
-<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !inLibraryView">{{ songs[0].album_artist }} &#8250; Albums</div>
+<div class="album-list-caption" *ngIf="songs && songs.length > 1 && !inLibraryView">{{ caption }}</div>
 
-<div class="album-list-wrapper" *ngIf="inLibraryView || (songs && songs.length > 1 && currentSong && currentSong?.album_artist === songs[0].album_artist)">
+<div class="album-list-wrapper" *ngIf="inLibraryView || (songs && songs.length > 1 && currentSong)">
   <div *ngIf="albumViewOpen" class="album-view">
     <div class="back" (click)="closeAlbumView()"><h2>‹ Back</h2></div>
     <div class="album-info">

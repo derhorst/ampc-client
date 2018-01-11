@@ -1,7 +1,15 @@
 <div>
   <h2>Settings</h2><br>
-  <div (click)="toggleAlbumView()" >
-    <input type="checkbox" [(ngModel)]="albumView"/>
-    <label> Group library by album</label>
+  <div>
+    <label>
+      <input #albumViewCb type="checkbox" [checked]="albumView"/>
+      Group library by album
+     </label>
   </div>
+  <br>
+  <div>Show random albums on home screen (number)
+  <input type="text" [(ngModel)]="showRandomAlbums">
+  </div>
+  <br>
+  <button (click)="submit(albumViewCb.checked)">Accept</button>
 </div>

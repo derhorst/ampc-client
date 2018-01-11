@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
   albumView = false;
+  showRandomAlbums: number = +localStorage.getItem('showRandomAlbums');
 
   ngOnInit() {
     if (localStorage.getItem('libraryView') === 'albums') {
@@ -23,6 +24,17 @@ export class SettingsComponent implements OnInit {
       localStorage.setItem('libraryView', 'artist');
     } else {
       localStorage.setItem('libraryView', 'albums');
+    }
+  }
+
+  submit(albumViewCb: boolean) {
+    if (!isNaN(+this.showRandomAlbums)) {
+      localStorage.setItem('showRandomAlbums', '' + this.showRandomAlbums);
+    }
+    if (albumViewCb === true && localStorage.getItem('libraryView') !== 'albums') {
+      localStorage.setItem('libraryView', 'albums');
+    } else if (albumViewCb === false && localStorage.getItem('libraryView') === 'albums') {
+      localStorage.setItem('libraryView', 'artists');
     }
   }
 

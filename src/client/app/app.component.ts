@@ -32,6 +32,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!localStorage.getItem('showRandomAlbums')) {
+      localStorage.setItem('showRandomAlbums', '' + 4);
+    }
     this._currentSong.getCurrentSong().subscribe(
         (song: Song) => {
           // if (localStorage.getItem('libraryView') !== 'albums') {

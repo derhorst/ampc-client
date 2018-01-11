@@ -21,7 +21,10 @@ export class HomeComponent implements OnInit {
   currentSong: Song;
   showControls = true;
 
+  showRandomAlbums: number = +localStorage.getItem('showRandomAlbums');
+
   albumSongs: Song[];
+  randomAlbums: Song[] = [];
 
   constructor(private _currentSong: CurrentSongService, private _mpd: MpdService, private _library: LibraryService) {}
 
@@ -29,18 +32,30 @@ export class HomeComponent implements OnInit {
     this.song = this._currentSong.getCurrentSong();
     this.song.subscribe(
       (song: Song) => {
-        if (!this.currentSong || this.currentSong.album_artist !== song.album_artist) {
-          this._mpd.sendCommand('getArtistAlbums', [song.album_artist]);
-        }
         this.currentSong = song;
+        this._library.getAlbumArtSongs().subscribe(
+          (songs: any) => {
+              this.albumSongs = songs[this.currentSong.album_artist];
+            }
+          );
+        if (this.showRandomAlbums > 0) {
+          this.getRandomAlbums(this.showRandomAlbums);
+        }
       },
       err => {
         console.log(err);
       }
     );
+  }
 
-    this._currentSong.getArtistAlbums().subscribe((songs: Song[]) => {
-        this.albumSongs = songs;
+  getRandomAlbums(no: number) {
+    this._library.getAlbumArtSongs().subscribe(
+      (songs: any) => {
+        this.randomAlbums = [];
+        for (let i = 0; i < no; i++) {
+          const artist =  Object.keys(songs)[Math.floor(Math.random() * Object.keys(songs).length)];
+          this.randomAlbums = this.randomAlbums.concat(songs[artist][Math.floor(Math.random() * songs[artist].length)]);
+        }
       }
     );
   }
