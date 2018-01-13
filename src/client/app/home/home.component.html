@@ -2,21 +2,6 @@
   <sd-album-list *ngIf="albumSongs" [songs]="albumSongs" [currentSong]="currentSong" [inLibraryView]="false" [caption]="albumSongs[0].album_artist + ' &#8250; Albums'"></sd-album-list>
   <sd-album-list *ngIf="showRandomAlbums > 0" [songs]="randomAlbums" [currentSong]="currentSong" [inLibraryView]="false" [caption]="'Random Albums'"></sd-album-list>
 </div>
-<div class="mobile">
-  <div class="mobile-current">
-    <div class="box cover">
-      <sd-cover [song]="currentSong"></sd-cover>
-    </div>
-    <div class="box song-info">
-      <h1>{{ currentSong?.title }}</h1>
-      <h2>{{ currentSong?.artist }}</h2>
-      <h2>{{ currentSong?.album }} {{ currentSong?.date | year }}</h2>
-    </div>
-  </div>
-  <div class="mobile-queue">
-    <sd-queue class="queue"></sd-queue>
-  </div>
-</div>
 
 <!--
 <sd-queue class="more"></sd-queue> -->

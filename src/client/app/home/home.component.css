@@ -9,7 +9,7 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
-  grid-template-rows: 1fr 6fr;
+  grid-template-rows: 1fr;
 }
 
 .mobile-current {
@@ -30,7 +30,7 @@
   padding: 0;
 }
 
-@media (max-width: 60em) {
+@media (max-width: 960px) {
   .mobile {
     display: grid;
   }

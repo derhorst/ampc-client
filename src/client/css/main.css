@@ -216,6 +216,15 @@ button:hover {
   background-color: #28739e;
 }
 
+.disable-text-selection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 
 @media (max-width: 60em) {
   .content.controls-visible {
@@ -224,8 +233,12 @@ button:hover {
     overflow: hidden;
   }
 
-  .current, .queue-content, .view-controls-bottom, .state-controls-bottom {
+  .current,.queue-content, .view-controls-bottom, .state-controls-bottom {
     display: none;
+  }
+
+  .queue-content.home-view {
+    display: block !important;
   }
 
   .ctrl {

@@ -15,7 +15,7 @@
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>
-    <div class="box queue-content">
+    <div class="box queue-content" [ngClass]="{'home-view': home}">
       <sd-queue class="queue"></sd-queue>
     </div>
   <div class="ctrl">

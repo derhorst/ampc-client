@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { MpdService } from './shared/websocket/mpd.service';
 import { CurrentSongService } from './shared/state/current-song.service';
 import { LibraryService } from './shared/library/library.service';
@@ -26,12 +28,26 @@ export class AppComponent implements OnInit {
   mute = false;
   playing = false;
   showControls = true;
-  constructor(private _mpd: MpdService, private _currentSong: CurrentSongService, private _library: LibraryService,
-    private _state: StateService) {
+  route: any;
+  home = false;
+  constructor(private _router: Router, private _mpd: MpdService, private _currentSong: CurrentSongService,
+    private _library: LibraryService, private _state: StateService) {
     console.log('Environment config', Config);
   }
 
   ngOnInit() {
+    this._router.events.subscribe(
+      (data: any) => {
+        if (data['url']) {
+          if (data['url'] === '/') {
+            this.home = true;
+          } else {
+            this.home = false;
+          }
+        }
+      }
+    );
+
     if (!localStorage.getItem('showRandomAlbums')) {
       localStorage.setItem('showRandomAlbums', '' + 4);
     }
