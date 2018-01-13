@@ -23,6 +23,7 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      {src: `dragula/dist/dragula.css`, inject: true},
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -51,7 +52,17 @@ export class ProjectConfig extends SeedConfig {
        main: 'lib/index',
      }
 
-    }];
+     },
+     {
+       name: 'ng2-dragula',
+       // Path to the package's bundle
+       path: 'node_modules/ng2-dragula',
+       packageMeta: {
+        defaultExtension: 'js',
+        main: 'bundles/ng2-dragula.umd.min',
+      }
+
+     }];
 
     this.addPackagesBundles(additionalPackages);
 

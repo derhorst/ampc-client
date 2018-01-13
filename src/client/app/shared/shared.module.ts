@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { InlineSVGModule } from 'ng-inline-svg';
+import { DragulaModule } from 'ng2-dragula';
 
 import { WebsocketService } from './websocket/websocket.service';
 import { MpdService } from './websocket/mpd.service';
@@ -32,7 +33,7 @@ import { TrackNumberPipe } from './queue/track-number.pipe';
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule, InlineSVGModule],
+  imports: [CommonModule, RouterModule, InlineSVGModule, DragulaModule],
   declarations: [QueueComponent, YearPipe, FormatDurationPipe,
      GetCoverUrlPipe, AlbumListComponent, DuplicateAlbumFilterPipe, ControlsBarComponent, ViewControlsComponent, StateControlsComponent,
      ProgressBarComponent, CoverComponent, TrackNumberPipe],

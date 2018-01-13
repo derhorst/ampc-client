@@ -1,13 +1,17 @@
-<div *ngFor="let song of queue; let i = index" class="song-album-row" (click)="selectTrack(song)">
-  <div *ngIf="currentSong && song.pos === currentSong.pos" #target>{{ scroll(target) }}</div>
-  <div *ngIf="i < 1 || (song.album !== queue[i-1].album || song.album_artist !== queue[i-1].album_artist)" class="album-row">
-    <!-- <img [src]="song.file | getCoverUrl" onError="this.src='assets/jpg/placeholder.jpg';"> -->
-    <sd-cover class="cover" [song]="song" [showControls]="false"></sd-cover>
-    {{ song.album_artist }} - {{ song.album }} {{ song.date | year }}
-  </div>
-  <div class="song-row" [ngClass]="{active: currentSong && song.pos === currentSong.pos, 'selected': song.pos === selected?.pos &&
-   song.id === selected?.id}" (dblclick)="playTrack(song)">
-    {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.pos === currentSong.pos">▸&nbsp;</div>{{ song.title }}
-    <span class="song-duration">{{ song.duration | formatDuration }}</span>
+<div [dragula]='"queue-container"'>
+  <div *ngFor="let song of queue; let i = index" class="song-album-row" (click)="selectTrack(song)" [attr.data-id]="song.id"
+   [attr.data-pos]="song.pos">
+    <div *ngIf="currentSong && song.pos === currentSong.pos" #target>{{ scroll(target) }}</div>
+    <div *ngIf="i < 1 || (song.album !== queue[i-1].album || song.album_artist !== queue[i-1].album_artist)" class="album-row">
+      <!-- <img [src]="song.file | getCoverUrl" onError="this.src='assets/jpg/placeholder.jpg';"> -->
+      <sd-cover class="cover" [song]="song" [showControls]="false"></sd-cover>
+      {{ song.album_artist }} - {{ song.album }} {{ song.date | year }}
+    </div>
+    <div class="song-row" [ngClass]="{active: currentSong && song.pos === currentSong.pos, 'selected': song.pos === selected?.pos &&
+     song.id === selected?.id}" (dblclick)="playTrack(song)">
+      {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.id === currentSong.id">▸&nbsp;</div>
+      {{ song.title }}
+      <span class="song-duration">{{ song.duration | formatDuration }}</span>
+    </div>
   </div>
 </div>

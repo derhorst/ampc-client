@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { DragulaService } from 'ng2-dragula';
 
 import { Config } from './../../shared/config/env.config';
 
@@ -22,7 +23,7 @@ import { StateService } from '../state/state.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class QueueComponent {
+export class QueueComponent implements OnInit {
   queue: Song[];
   currentSong: Song;
   queueChanged = false;
@@ -31,8 +32,24 @@ export class QueueComponent {
 
   private _song: ReplaySubject<Song>;
 
-  constructor(private _cd: ChangeDetectorRef, private _queue: QueueService, private _state: StateService ,
-    private _currentSong: CurrentSongService, private _mpd: MpdService) {
+  constructor(private _dragulaService: DragulaService, private _cd: ChangeDetectorRef, private _queue: QueueService,
+    private _state: StateService, private _currentSong: CurrentSongService, private _mpd: MpdService) {}
+
+  ngOnInit() {
+    if (!this._dragulaService.find('queue-container')) {
+      this._dragulaService.setOptions('queue-container', {
+          removeOnSpill: true
+      });
+    }
+
+    this._dragulaService.remove.subscribe((value: any) => {
+      this.onRemove(value.slice(1));
+    });
+
+    this._dragulaService.drop.subscribe((value: any) => {
+      this.onDrop(value.slice(1));
+    });
+
     this._queue.getQueue().subscribe((songs: Song[]) => {
         this.queue = songs;
         this.queueChanged = true;
@@ -80,5 +97,31 @@ export class QueueComponent {
 
   str_pad_left(string: string, pad: string, length: number) {
       return (new Array(length + 1).join(pad) + string).slice(-length);
+  }
+
+  private onRemove(args: any) {
+    const [el, source] = args;
+    this._mpd.sendCommand('rmTrack', [el.attributes['data-pos'].value]);
+  }
+
+  private onDrop(args: any) {
+    const [el, target, source] = args;
+    const from: number = +el.attributes['data-pos'].value;
+    let to;
+    for (let i = 0; i < target.children.length; i++) {
+      // console.log(target.children[i].attributes['data-pos'].value);
+      if (i === 0 && +target.children[i].attributes['data-pos'].value === from) {
+        to = 0;
+        break;
+      }
+      if (+target.children[i].attributes['data-pos'].value === from) {
+        to = +target.children[i - 1].attributes['data-pos'].value + 1;
+      }
+    }
+    if (from > to) {
+      this._mpd.sendCommand('moveTrack', [from, to]);
+    } else if (from < to) {
+      this._mpd.sendCommand('moveTrack', [from, to - 1]);
+    }
   }
 }

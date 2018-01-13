@@ -132,6 +132,8 @@ export class MpdService {
     | 'playTrack'
     | 'getAlbumArtists'
     | 'updateQueue'
+    | 'rmTrack'
+    | 'moveTrack'
     | 'sendListAllMeta'
     | 'getBrowse'
     | 'listPlaylists'
@@ -187,6 +189,12 @@ export class MpdService {
           break;
         case 'updateQueue':
           this.ws.next('MPD_API_GET_QUEUE,0');
+          break;
+        case 'rmTrack':
+          this.ws.next('MPD_API_RM_TRACK_POS,' + args[0]);
+          break;
+        case 'moveTrack':
+          this.ws.next('MPD_API_MOVE_TRACK_POS,' + args[0] + ',' + args[1]);
           break;
         case 'sendListAllMeta':
           this.ws.next('MPD_API_SEND_LIST_ALL_META');
