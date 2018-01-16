@@ -139,6 +139,8 @@ export class MpdService {
     | 'listPlaylists'
     | 'listPlaylistMeta'
     | 'addTrackTo'
+    | 'addPlaylist'
+    | 'playPlaylist'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -211,6 +213,12 @@ export class MpdService {
           break;
         case 'addTrackTo':
           this.ws.next('MPD_API_ADD_TRACK_TO,' + args[1] + ',' + args[0]);
+          break;
+        case 'addPlaylist':
+          this.ws.next('MPD_API_ADD_PLAYLIST,' + args[0]);
+          break;
+        case 'playPlaylist':
+          this.ws.next('MPD_API_PLAY_PLAYLIST,' + args[0]);
           break;
         default:
           console.log('command not found:', command);

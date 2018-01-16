@@ -225,6 +225,14 @@ button:hover {
   user-select: none;
 }
 
+.caret-down {
+  transform: rotate(90deg);
+  display: inline-block;
+}
+
+.pull-right {
+  float: right;
+}
 
 @media (max-width: 60em) {
   .content.controls-visible {

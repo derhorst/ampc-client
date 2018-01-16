@@ -71,6 +71,14 @@ export class PlaylistsComponent implements OnInit, OnDestroy {
     }
   }
 
+  addPlaylist(playlist: string) {
+    this._mpd.sendCommand('addPlaylist', [playlist]);
+  }
+
+  playPlaylist(playlist: string) {
+    this._mpd.sendCommand('playPlaylist', [playlist]);
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }

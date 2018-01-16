@@ -2,7 +2,16 @@
   <h2>playlists</h2>
   <div>
     <div class="playlist" *ngFor="let playlist of playlists">
-      <span (click)="togglePlaylist(playlist)">{{ playlist }}</span>
+      <div class="playlist-row">
+        <span class="playlist-label" (click)="togglePlaylist(playlist)">
+          <span *ngIf="!open[playlist]">› </span>
+          <span class="caret-down" *ngIf="open[playlist]">› </span>
+          {{ playlist }}
+        </span>
+        <span class="pull-right playlist-ctrl"><img src="assets/png/media-playback-start-add.png" (click)="addPlaylist(playlist)"></span>
+        <span class="pull-right playlist-ctrl"><img src="assets/png/media-playback-start.png" (click)="playPlaylist(playlist)"></span>
+        <!-- <span class="pull-right"><img src="assets/png/media-playback-start-shuffle.png" alt="" width="32" height="32"></span> -->
+      </div>
       <div *ngIf="playlistSongs[playlist] && open[playlist]">
         <div *ngFor="let song of playlistSongs[playlist]">
           <div class="song-row" [ngClass]="{'selected': song.track === selected?.track &&

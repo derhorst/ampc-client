@@ -35,11 +35,6 @@
   padding: 6px 16px;
 }
 
-.caret-down {
-  transform: rotate(90deg);
-  display: inline-block;
-}
-
 .library-caption {
   display: inline-flex;
 }
