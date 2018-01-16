@@ -13,9 +13,9 @@
         <!-- <span class="pull-right"><img src="assets/png/media-playback-start-shuffle.png" alt="" width="32" height="32"></span> -->
       </div>
       <div *ngIf="playlistSongs[playlist] && open[playlist]">
-        <div *ngFor="let song of playlistSongs[playlist]">
+        <div *ngFor="let song of playlistSongs[playlist]" [dragula]="'queue-container'" class="playlist-list">
           <div class="song-row" [ngClass]="{'selected': song.track === selected?.track &&
-           song.file === selected?.file}"  (dblclick)="playTrack(song)" (click)="selectTrack(song)">
+           song.file === selected?.file}"  (dblclick)="addTrack(song)" (click)="selectTrack(song)" [attr.data-file]="song.file">
             {{ song.track | trackNumber }} &nbsp; {{ song.title }}
             <span class="song-duration">{{ song.duration | formatDuration }}</span>
           </div>

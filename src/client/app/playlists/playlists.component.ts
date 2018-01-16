@@ -71,6 +71,10 @@ export class PlaylistsComponent implements OnInit, OnDestroy {
     }
   }
 
+  addTrack(song: Song) {
+    this._mpd.sendCommand('addTrack', [song.file]);
+  }
+
   addPlaylist(playlist: string) {
     this._mpd.sendCommand('addPlaylist', [playlist]);
   }
