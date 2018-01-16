@@ -64,6 +64,11 @@
   opacity: 1;
 }
 
+.library-album-list {
+  padding-bottom: 0;
+  height: 100%;
+}
+
 .album-list-wrapper {
   /*height: 100%;*/
   /*overflow-y: scroll;*/

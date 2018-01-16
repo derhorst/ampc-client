@@ -5,14 +5,16 @@
       <h2 class="clear-filter" (click)="filter = ''">X</h2>
   </div>
   <div class="library-wrapper" [ngClass]="{'album-grouping': libraryView === 'albums'}">
-    <div *ngFor="let artist of artists  | artistViewFilter : albumArtSongs : filter">
-      <span *ngIf="libraryView !== 'albums'" class="album-artist-label" (click)="toggleAlbumView(artist)">
-        <span *ngIf="!open[artist]">› </span>
-        <span class="caret-down" *ngIf="open[artist]">› </span>
-        {{ artist }}
-      </span>
-      <sd-album-list *ngIf="libraryView !== 'albums' && open[artist]" [songs]="albumArtSongs[artist]" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
+    <div *ngIf="libraryView !== 'albums'">
+      <div *ngFor="let artist of artists  | artistViewFilter : albumArtSongs : filter">
+        <span class="album-artist-label" (click)="toggleAlbumView(artist)">
+          <span *ngIf="!open[artist]">› </span>
+          <span class="caret-down" *ngIf="open[artist]">› </span>
+          {{ artist }}
+        </span>
+        <sd-album-list *ngIf="open[artist]" [songs]="albumArtSongs[artist]" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
+      </div>
     </div>
-      <sd-album-list *ngIf="libraryView === 'albums'" [songs]="getSongs(albumArtSongs) | albumViewFilter : filter" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
+    <sd-album-list *ngIf="libraryView === 'albums'" [songs]="getSongs(albumArtSongs) | albumViewFilter : filter" [showAlbum]="showAlbum" [inLibraryView]="true" [libraryGrouping]="albums"></sd-album-list>
   </div>
 </div>
