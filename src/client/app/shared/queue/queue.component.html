@@ -1,5 +1,5 @@
-<div [dragula]='"queue-container"'>
-  <div *ngFor="let song of queue; let i = index" class="song-album-row disable-text-selection" (click)="selectTrack(song)" [attr.data-id]="song.id"
+<div [dragula]='"queue-container"' class="queue-container">
+  <div *ngFor="let song of queue; let i = index" class="song-album-row disable-text-selection song-queue" (click)="selectTrack(song)" [attr.data-id]="song.id"
    [attr.data-pos]="song.pos">
     <div *ngIf="currentSong && song.pos === currentSong.pos" #target>{{ scroll(target) }}</div>
     <div *ngIf="i < 1 || (song.album !== queue[i-1].album || song.album_artist !== queue[i-1].album_artist)" class="album-row">

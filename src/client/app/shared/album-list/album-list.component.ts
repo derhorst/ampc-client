@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { DragulaService } from 'ng2-dragula';
 
 import { Config } from './../../shared/config/env.config';
 

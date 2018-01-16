@@ -38,7 +38,17 @@ export class QueueComponent implements OnInit {
   ngOnInit() {
     if (!this._dragulaService.find('queue-container')) {
       this._dragulaService.setOptions('queue-container', {
-          removeOnSpill: true
+          removeOnSpill: true,
+          accepts: (el: Element, target: Element, source: Element, sibling: Element): boolean => {
+            if (target.classList.contains('album-list')) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+          copy: (el: Element, target: Element, source: Element, sibling: Element): boolean => {
+            return !el.classList.contains('song-queue');
+          }
       });
     }
 
@@ -105,23 +115,36 @@ export class QueueComponent implements OnInit {
   }
 
   private onDrop(args: any) {
-    const [el, target, source] = args;
-    const from: number = +el.attributes['data-pos'].value;
-    let to;
-    for (let i = 0; i < target.children.length; i++) {
-      // console.log(target.children[i].attributes['data-pos'].value);
-      if (i === 0 && +target.children[i].attributes['data-pos'].value === from) {
-        to = 0;
-        break;
+    const [el, target, source, sibling] = args;
+    // element moved in queue
+    if (el.attributes['data-pos']) {
+      const from: number = +el.attributes['data-pos'].value;
+      let to;
+      for (let i = 0; i < target.children.length; i++) {
+        // console.log(target.children[i].attributes['data-pos'].value);
+        if (i === 0 && +target.children[i].attributes['data-pos'].value === from) {
+          to = 0;
+          break;
+        }
+        if (+target.children[i].attributes['data-pos'].value === from) {
+          to = +target.children[i - 1].attributes['data-pos'].value + 1;
+        }
       }
-      if (+target.children[i].attributes['data-pos'].value === from) {
-        to = +target.children[i - 1].attributes['data-pos'].value + 1;
+      if (from > to) {
+        this._mpd.sendCommand('moveTrack', [from, to]);
+      } else if (from < to) {
+        this._mpd.sendCommand('moveTrack', [from, to - 1]);
       }
-    }
-    if (from > to) {
-      this._mpd.sendCommand('moveTrack', [from, to]);
-    } else if (from < to) {
-      this._mpd.sendCommand('moveTrack', [from, to - 1]);
+    } else {
+      // element inserted into queue
+      // inserted at the end
+      if (!sibling) {
+        this._mpd.sendCommand('addTrack', [el.attributes['data-file'].value]);
+        el.remove();
+      } else {
+        this._mpd.sendCommand('addTrackTo', [el.attributes['data-file'].value, +sibling.attributes['data-pos'].value]);
+        el.remove();
+      }
     }
   }
 }

@@ -13,10 +13,10 @@
         <h2>Tracks: {{ album.length }} - {{ albumDuration | formatDuration }}</h2>
       </div>
     </div>
-    <div *ngFor="let song of album">
+    <div *ngFor="let song of album" class="album-list" [dragula]="'queue-container'">
       <div class="song-row" [ngClass]="{'selected': song.track === selected?.track &&
-       song.file === selected?.file}"  (dblclick)="playTrack(song)" (click)="selectTrack(song)">
-        {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.pos === currentSong.pos">▸&nbsp;</div>{{ song.title }}
+       song.file === selected?.file}"  (dblclick)="playTrack(song)" (click)="selectTrack(song)" [attr.data-file]="song.file">
+        {{ song.track | trackNumber }} &nbsp; {{ song.title }}
         <span class="song-duration">{{ song.duration | formatDuration }}</span>
       </div>
     </div>
