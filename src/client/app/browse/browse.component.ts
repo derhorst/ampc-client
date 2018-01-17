@@ -60,11 +60,6 @@ export class BrowseComponent implements OnInit {
         this.directories = Object.keys(data[this.path].directories);
         this.songs = data[this.path].songs;
       }
-      // for (let i = 0; i < this.playlists.length; i++) {
-      //     if (data[this.playlists[i]]) {
-      //       this.playlistSongs[this.playlists[i]] = data[this.playlists[i]];
-      //     }
-      // }
     }));
   }
 

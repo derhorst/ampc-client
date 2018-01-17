@@ -42,6 +42,7 @@ export class QueueComponent implements OnInit {
           accepts: (el: Element, target: Element, source: Element, sibling: Element): boolean => {
             if (target.classList.contains('album-list')
             || target.classList.contains('playlist-list')
+            || target.classList.contains('search-list')
             || target.classList.contains('browse-songs-list')) {
               return false;
             } else {

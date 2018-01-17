@@ -14,6 +14,7 @@ import { QueueService } from './state/queue.service';
 import { LibraryService } from './library/library.service';
 import { PlaylistsService } from './library/playlists.service';
 import { BrowseService } from './library/browse.service';
+import { SearchService } from './library/search.service';
 
 import { QueueComponent } from './queue/queue.component';
 import { AlbumListComponent } from './album-list/album-list.component';
@@ -47,7 +48,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [WebsocketService, MpdService, StateService, CurrentSongService, QueueService, LibraryService, PlaylistsService,
-         BrowseService]
+         BrowseService, SearchService]
     };
   }
 }

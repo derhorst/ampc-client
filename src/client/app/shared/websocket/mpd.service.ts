@@ -8,6 +8,7 @@ import { CurrentSongService } from '../state/current-song.service';
 import { LibraryService } from '../library/library.service';
 import { PlaylistsService } from '../library/playlists.service';
 import { BrowseService } from '../library/browse.service';
+import { SearchService } from '../library/search.service';
 
 import { Config } from './../../shared/config/env.config';
 
@@ -23,7 +24,8 @@ export class MpdService {
    * Constructor of the logging service
    */
   constructor(private _websocket: WebsocketService, private _state: StateService, private _currentSong: CurrentSongService,
-    private _queue: QueueService, private _library: LibraryService, private _playlists: PlaylistsService, private _browse: BrowseService) {
+    private _queue: QueueService, private _library: LibraryService, private _playlists: PlaylistsService, private _browse: BrowseService,
+      private _search: SearchService) {
     this.listen();
   }
 
@@ -100,6 +102,9 @@ export class MpdService {
               case 'browse':
                 this._browse.setBrowseData(wsData.path, wsData.data);
                 break;
+              case 'search':
+                this._search.setSearchResult(wsData.data);
+                break;
               default:
             }
             // console.log('WS:', wsData);
@@ -146,6 +151,7 @@ export class MpdService {
     | 'addTrackTo'
     | 'addPlaylist'
     | 'playPlaylist'
+    | 'search'
     ,
     args?: any[]) {
     if (!this.ws.closed) {
@@ -227,6 +233,9 @@ export class MpdService {
           break;
         case 'playPlaylist':
           this.ws.next('MPD_API_PLAY_PLAYLIST,' + args[0]);
+          break;
+        case 'search':
+          this.ws.next('MPD_API_SEARCH,' + args[0]);
           break;
         default:
           console.log('command not found:', command);

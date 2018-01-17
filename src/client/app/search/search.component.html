@@ -1,1 +1,21 @@
-<h2>todo: search</h2>
+<h2>Search</h2>
+<div class="search-input">
+  <input type="text" name="lname" placeholder="Search" [(ngModel)]="searchTerm" (keydown)="keyDown($event)">
+  <h2 class="clear-filter" (click)="searchTerm = ''">X</h2>
+  <button (click)="search()">Search</button>
+</div>
+<div class="search-result">
+  <div *ngIf="songs !== null && songs && songs.length === 0"><h2>No Results!</h2></div>
+  <div *ngFor="let song of songs; let i = index" [dragula]="'queue-container'" class="search-list">
+    <div *ngIf="i < 1 || (song.album !== songs[i-1].album || song.album_artist !== songs[i-1].album_artist)" class="album-row" [attr.data-file]="song.file">
+      <!-- <img [src]="song.file | getCoverUrl" onError="this.src='assets/jpg/placeholder.jpg';"> -->
+      <sd-cover class="cover" [song]="song" [showControls]="false"></sd-cover>
+      {{ song.album_artist }} - {{ song.album }} {{ song.date | year }}
+    </div>
+    <div class="song-row" [ngClass]="{active: currentSong && song.pos === currentSong.pos,'selected': song.track === selected?.track &&
+     song.file === selected?.file}" (dblclick)="addTrack(song)" (click)="selectTrack(song)" [attr.data-file]="song.file">
+      {{ song.track | trackNumber }} &nbsp;  <div class="play-indicator" *ngIf="currentSong && song.id === currentSong.id">▸&nbsp;</div>
+      {{ song.title }}
+      <span class="song-duration">{{ song.duration | formatDuration }}</span>
+  </div>
+</div>
