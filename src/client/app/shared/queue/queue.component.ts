@@ -40,7 +40,9 @@ export class QueueComponent implements OnInit {
       this._dragulaService.setOptions('queue-container', {
           removeOnSpill: true,
           accepts: (el: Element, target: Element, source: Element, sibling: Element): boolean => {
-            if (target.classList.contains('album-list') || target.classList.contains('playlist-list')) {
+            if (target.classList.contains('album-list')
+            || target.classList.contains('playlist-list')
+            || target.classList.contains('browse-songs-list')) {
               return false;
             } else {
               return true;

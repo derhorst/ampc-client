@@ -5,8 +5,8 @@
 
 .song-row {
   width: 100%;
-  margin-left: 1em;
-  padding: 6px 16px;
+  margin: 0 1em;
+  padding: 6px 32px 6px 16px;
   font-size: 1.2rem;
   cursor: pointer;
 }

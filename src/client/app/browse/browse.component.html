@@ -1,1 +1,30 @@
-<h2>todo: browse</h2>
+<h2>Browse</h2>
+<div class="browse disable-text-selection">
+  <div class="breadcrumbs-trail">
+    <span routerLink="/browse">root</span>
+    <span *ngIf="params?.path" routerLink="/browse/{{ params.path }}"> / {{ params.path }}</span>
+    <span *ngIf="params?.path1" routerLink="/browse/{{ params.path }}/{{ params.path1 }}"> / {{ params.path1 }}</span>
+    <span *ngIf="params?.path2" routerLink="/browse/{{ params.path }}/{{ params.path1 }}/{{ params.path2 }}"> / {{ params.path2 }}</span>
+    <span *ngIf="params?.path3" routerLink="/browse/{{ params.path }}/{{ params.path1 }}/{{ params.path2 }}/{{ params.path3 }}">
+       / {{ params.path3 }}</span>
+  </div>
+  <br>
+  <div class="browse-container">
+    <div *ngIf="params?.path" class="add-all-btn">
+      <button (click)="addAll()">Add All</button>
+      <button (click)="playAll()">▸</button>
+    </div>
+    <div *ngFor="let dir of directories">
+      <div class="folder-row" routerLink="/browse/{{ dir }}">
+        <img src="assets/svg/folder-white.svg" height="18" width="18"> <span>{{ dir }}</span>
+      </div>
+    </div>
+    <div *ngFor="let song of songs" [dragula]="'queue-container'" class="browse-songs-list">
+      <div class="song-row" [ngClass]="{'selected': song.track === selected?.track &&
+       song.file === selected?.file}"  (dblclick)="addTrack(song)" (click)="selectTrack(song)" [attr.data-file]="song.file">
+        {{ song.track | trackNumber }} &nbsp; {{ song.title }}
+        <span class="song-duration">{{ song.duration | formatDuration }}</span>
+      </div>
+    </div>
+  </div>
+</div>
