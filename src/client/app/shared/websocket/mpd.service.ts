@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { WebsocketService } from './websocket.service';
+// import { Subject } from 'rxjs/Subject';
+
+// import all of rx because only Observable didn't work with "Observable.webSocket"
+import * as Rx from 'rxjs/Rx';
 
 import { StateService } from '../state/state.service';
 import { QueueService } from '../state/queue.service';
@@ -19,11 +21,11 @@ import { Config } from './../../shared/config/env.config';
 @Injectable()
 export class MpdService {
 
-  ws: Subject<any>;
+  ws: Rx.Subject<any>;
   /**
    * Constructor of the logging service
    */
-  constructor(private _websocket: WebsocketService, private _state: StateService, private _currentSong: CurrentSongService,
+  constructor(private _state: StateService, private _currentSong: CurrentSongService,
     private _queue: QueueService, private _library: LibraryService, private _playlists: PlaylistsService, private _browse: BrowseService,
       private _search: SearchService) {
     this.listen();
@@ -32,7 +34,6 @@ export class MpdService {
   listen() {
     let pcol;
     let u = document.URL;
-    let connected = false;
 
     /*
     /* We open the websocket encrypted if this page came on an
@@ -50,23 +51,18 @@ export class MpdService {
     }
 
     u = u.split('#')[0];
-
     if (Config.ENV === 'DEV') {
-      this.ws = this._websocket
-      .connect('ws://localhost:8080/ws');
+      this.ws = Rx.Observable.webSocket('ws://localhost:8080/ws');
+      this.sendCommand('sendListAllMeta');
     } else {
-      this.ws = this._websocket
-      .connect(pcol + u + '/ws');
+      this.ws = Rx.Observable.webSocket(pcol + u + '/ws');
+      this.sendCommand('sendListAllMeta');
     }
 
-    this.ws.subscribe((response: MessageEvent) => {
-      if (response) {
+    this.ws.retry().subscribe((msg: any) => {
+      if (msg) {
           try {
-            if (!connected) {
-              connected = true;
-              this.sendCommand('sendListAllMeta');
-            }
-            const wsData = JSON.parse(response.data);
+            const wsData = msg;
             switch (wsData.type) {
               case 'state':
                 this._state.setState(wsData.data);
@@ -112,13 +108,10 @@ export class MpdService {
             console.log('WS error:', e); // error in the above string (in this case, yes)!
           }
         }
-      }, err => {
-        console.log('WS Error:', err);
-        if (!this.ws.closed) {
-          this.ws.unsubscribe();
-        }
-        this.ws = null;
-        this.listen();
+      }, error => {
+        console.log('ERr', error);
+        this.ws.unsubscribe();
+        this.ws.complete();
       }
     );
   }

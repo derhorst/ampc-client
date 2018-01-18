@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { DragulaModule } from 'ng2-dragula';
 
-import { WebsocketService } from './websocket/websocket.service';
 import { MpdService } from './websocket/mpd.service';
 import { StateService } from './state/state.service';
 import { CurrentSongService } from './state/current-song.service';
@@ -47,7 +46,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [WebsocketService, MpdService, StateService, CurrentSongService, QueueService, LibraryService, PlaylistsService,
+      providers: [MpdService, StateService, CurrentSongService, QueueService, LibraryService, PlaylistsService,
          BrowseService, SearchService]
     };
   }
